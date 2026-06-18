@@ -1226,14 +1226,20 @@ final class WAYT_Recesso_Online {
 		// comunque already_withdrawn() a bloccare ulteriori invii).
 		delete_transient( $proc_lock );
 
-		// Esito.
-		echo '<div class="wayt-recesso-success" style="padding:1.25em;border:1px solid #2e7d32;border-radius:8px;background:#edf7ed;">';
+		// Esito. Il bordo diventa ambra se l'avviso email non e' partito.
+		$ok_border = $ack_ok ? '#2e7d32' : '#b8860b';
+		$ok_bg     = $ack_ok ? '#edf7ed' : '#fff8e6';
+		echo '<div class="wayt-recesso-success" style="padding:1.25em;border:1px solid ' . esc_attr( $ok_border ) . ';border-radius:8px;background:' . esc_attr( $ok_bg ) . ';">';
 		echo '<h2 style="margin-top:0;">' . esc_html__( 'Recesso registrato', 'wayt-recesso' ) . '</h2>';
-		echo '<p>' . sprintf(
-			/* translators: %s: email */
-			esc_html__( 'Abbiamo ricevuto la tua dichiarazione di recesso. Un avviso di ricevimento con data e ora di trasmissione e\' stato inviato a %s.', 'wayt-recesso' ),
-			'<strong>' . esc_html( $data['email'] ) . '</strong>'
-		) . '</p>';
+		if ( $ack_ok ) {
+			echo '<p>' . sprintf(
+				/* translators: %s: email */
+				esc_html__( 'Abbiamo ricevuto la tua dichiarazione di recesso. Un avviso di ricevimento con data e ora di trasmissione e\' stato inviato a %s.', 'wayt-recesso' ),
+				'<strong>' . esc_html( $data['email'] ) . '</strong>'
+			) . '</p>';
+		} else {
+			echo '<p>' . esc_html__( 'Abbiamo registrato la tua dichiarazione di recesso, ma non e\' stato possibile inviare l\'avviso via email in questo momento. La registrazione resta valida: conserva o stampa questa pagina come ricevuta e, se non ricevi l\'avviso a breve, contatta il venditore.', 'wayt-recesso' ) . '</p>';
+		}
 		echo '<p>' . sprintf(
 			/* translators: %s: data ora */
 			esc_html__( 'Data e ora di trasmissione: %s', 'wayt-recesso' ),
