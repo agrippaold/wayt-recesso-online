@@ -71,7 +71,7 @@ Sì, è dichiarato compatibile con l'archiviazione ordini ad alte prestazioni di
 
 = Posso tradurlo nella mia lingua? =
 
-Sì. Le stringhe sono pronte per la traduzione e il file `languages/wayt-recesso.pot` è incluso.
+Sì. Sono incluse traduzioni attive per **inglese, tedesco, francese e spagnolo**; per le altre lingue WordPress usa automaticamente la stringa sorgente italiana (fallback). Il template `languages/wayt-recesso.pot` è incluso e le traduzioni per altre lingue UE sono benvenute via pull request. Le traduzioni fornite usano la terminologia armonizzata UE del recesso e sono un ausilio operativo, non testo legale vincolante: per le stringhe sensibili (etichetta del pulsante, dichiarazione, avviso) si consiglia una revisione madrelingua/legale.
 
 == Screenshots ==
 

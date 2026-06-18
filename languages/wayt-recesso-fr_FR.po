@@ -1,0 +1,930 @@
+# Copyright (C) 2026 WAYT
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WAYT Recesso Online 0.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wayt-recesso-"
+"online\n"
+"POT-Creation-Date: 2026-06-18T18:21:52+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: wayt-recesso\n"
+
+#. Plugin Name of the plugin
+#: wayt-recesso-online.php
+msgid "WAYT Recesso Online (art. 54-bis Cod. Consumo)"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: wayt-recesso-online.php
+msgid "https://wayt.it/"
+msgstr ""
+
+#. Description of the plugin
+#: wayt-recesso-online.php
+msgid ""
+"Funzione di recesso digitale conforme all'art. 54-bis del Codice del Consumo "
+"(D.Lgs 209/2025, Dir. UE 2023/2673) per WooCommerce: pulsante \"Recedi dal "
+"contratto qui\", dichiarazione + conferma, avviso di ricevimento su supporto "
+"durevole, audit log ed export CSV."
+msgstr ""
+"Fonction de rétractation numérique conforme à l'art. 54-bis du Code de la "
+"consommation italien (Décret législatif 209/2025, Dir. UE 2023/2673) pour "
+"WooCommerce : bouton \"Se rétracter du contrat ici\", déclaration + "
+"confirmation, accusé de réception sur un support durable, journal d'audit et "
+"export CSV."
+
+#. Author of the plugin
+#: wayt-recesso-online.php
+msgid "WAYT"
+msgstr ""
+
+#: wayt-recesso-online.php:223 wayt-recesso-online.php:524
+#: wayt-recesso-online.php:555 wayt-recesso-online.php:576
+#: wayt-recesso-online.php:758 wayt-recesso-online.php:804
+msgid "Recedi dal contratto qui"
+msgstr "Se rétracter du contrat ici"
+
+#: wayt-recesso-online.php:224 wayt-recesso-online.php:987
+msgid "Conferma recesso"
+msgstr "Confirmer la rétractation"
+
+#: wayt-recesso-online.php:229
+msgid "Avviso di ricevimento del recesso - Ordine #{order_number}"
+msgstr "Accusé de réception de la rétractation - Commande #{order_number}"
+
+#: wayt-recesso-online.php:230
+msgid "Abbiamo ricevuto la tua richiesta di recesso"
+msgstr "Nous avons reçu votre demande de rétractation"
+
+#: wayt-recesso-online.php:231
+msgid ""
+"Hai diritto di recedere dal contratto entro 14 giorni senza fornire alcuna "
+"motivazione. Potrai esercitare il recesso in modo semplice e diretto tramite "
+"l'apposita funzione \"Recedi dal contratto qui\" disponibile nella tua area "
+"ordini e alla pagina dedicata al recesso, oltre che tramite il modulo tipo "
+"di recesso."
+msgstr ""
+"Vous avez le droit de vous rétracter du contrat dans un délai de 14 jours "
+"sans avoir à fournir de motif. Vous pourrez exercer votre droit de "
+"rétractation de manière simple et directe grâce à la fonction dédiée \"Se "
+"rétracter du contrat ici\" disponible dans votre espace commandes et sur la "
+"page dédiée à la rétractation, ainsi qu'au moyen du formulaire type de "
+"rétractation."
+
+#: wayt-recesso-online.php:263
+msgid "Recesso dal contratto"
+msgstr "Rétractation du contrat"
+
+#: wayt-recesso-online.php:299
+msgid "WAYT Recesso Online richiede WooCommerce attivo."
+msgstr "WAYT Recesso Online nécessite que WooCommerce soit actif."
+
+#: wayt-recesso-online.php:332 wayt-recesso-online.php:359
+#: wayt-recesso-online.php:364
+msgctxt "Order status"
+msgid "Recesso richiesto"
+msgstr "Rétractation demandée"
+
+#. translators: %s: numero di ordini
+#: wayt-recesso-online.php:339
+#, php-format
+msgid "Recesso richiesto <span class=\"count\">(%s)</span>"
+msgid_plural "Recesso richiesto <span class=\"count\">(%s)</span>"
+msgstr[0] "Rétractation demandée <span class=\"count\">(%s)</span>"
+msgstr[1] "Rétractations demandées <span class=\"count\">(%s)</span>"
+
+#: wayt-recesso-online.php:544
+msgid "Diritto di recesso"
+msgstr "Droit de rétractation"
+
+#. translators: %d: giorni residui
+#: wayt-recesso-online.php:548
+#, php-format
+msgid "Puoi esercitare il recesso per ancora %d giorni."
+msgstr ""
+"Vous pouvez encore exercer votre droit de rétractation pendant %d jours."
+
+#: wayt-recesso-online.php:579
+msgid "Diritto di recesso:"
+msgstr "Droit de rétractation :"
+
+#: wayt-recesso-online.php:604
+msgid "Vai alla funzione di recesso online"
+msgstr "Accéder à la fonction de rétractation en ligne"
+
+#: wayt-recesso-online.php:607
+msgid "Scarica il modulo tipo di recesso"
+msgstr "Télécharger le formulaire type de rétractation"
+
+#: wayt-recesso-online.php:640
+msgid "WooCommerce non disponibile."
+msgstr "WooCommerce non disponible."
+
+#: wayt-recesso-online.php:720 wayt-recesso-online.php:932
+#: wayt-recesso-online.php:1068
+msgid "Sessione scaduta, riprova."
+msgstr "Session expirée, veuillez réessayer."
+
+#: wayt-recesso-online.php:728
+msgid "Troppi tentativi di ricerca. Riprova tra qualche minuto."
+msgstr ""
+"Trop de tentatives de recherche. Veuillez réessayer dans quelques minutes."
+
+#: wayt-recesso-online.php:740
+msgid "Numero ordine non valido."
+msgstr "Numéro de commande non valide."
+
+#: wayt-recesso-online.php:746
+msgid "Ordine non trovato o email non corrispondente."
+msgstr "Commande introuvable ou e-mail non correspondant."
+
+#: wayt-recesso-online.php:759
+msgid "Inserisci il numero del tuo ordine e l'email utilizzata per l'acquisto."
+msgstr "Saisissez votre numéro de commande et l'e-mail utilisé pour l'achat."
+
+#: wayt-recesso-online.php:761
+msgid "Numero ordine"
+msgstr "Numéro de commande"
+
+#: wayt-recesso-online.php:765
+msgid "Email"
+msgstr "E-mail"
+
+#: wayt-recesso-online.php:770
+msgid "Continua"
+msgstr "Continuer"
+
+#: wayt-recesso-online.php:797
+msgid "I tuoi ordini per cui puoi recedere"
+msgstr "Vos commandes pour lesquelles vous pouvez vous rétracter"
+
+#: wayt-recesso-online.php:818 wayt-recesso-online.php:1091
+msgid "Il periodo di recesso per questo ordine non e' attivo."
+msgstr "Le délai de rétractation pour cette commande n'est pas actif."
+
+#: wayt-recesso-online.php:822 wayt-recesso-online.php:1096
+msgid "Per questo ordine risulta gia' registrato un recesso."
+msgstr "Une rétractation est déjà enregistrée pour cette commande."
+
+#: wayt-recesso-online.php:831
+msgid "Dichiarazione di recesso"
+msgstr "Déclaration de rétractation"
+
+#. translators: 1: numero ordine, 2: data
+#: wayt-recesso-online.php:836
+#, php-format
+msgid "Ordine #%1$s del %2$s."
+msgstr "Commande #%1$s du %2$s."
+
+#. translators: %d: giorni
+#: wayt-recesso-online.php:844
+#, php-format
+msgid "Giorni residui: %d."
+msgstr "Jours restants : %d."
+
+#: wayt-recesso-online.php:852
+msgid "Nome e cognome"
+msgstr "Nom et prénom"
+
+#: wayt-recesso-online.php:856
+msgid "Email per la conferma di recesso"
+msgstr "E-mail pour la confirmation de rétractation"
+
+#: wayt-recesso-online.php:858
+msgid ""
+"Riceverai a questo indirizzo l'avviso di ricevimento su supporto durevole."
+msgstr "Vous recevrez à cette adresse l'accusé de réception sur un support durable."
+
+#: wayt-recesso-online.php:863
+msgid "Articoli oggetto del recesso"
+msgstr "Articles concernés par la rétractation"
+
+#: wayt-recesso-online.php:866
+msgid "Recedo dall'intero ordine"
+msgstr "Je me rétracte de la totalité de la commande"
+
+#: wayt-recesso-online.php:870
+msgid "Recedo solo da alcuni articoli:"
+msgstr "Je me rétracte seulement de certains articles :"
+
+#: wayt-recesso-online.php:896 wayt-recesso-online.php:909
+msgid "Motivo (facoltativo)"
+msgstr "Motif (facultatif)"
+
+#: wayt-recesso-online.php:898
+msgid "— Nessuna indicazione —"
+msgstr "— Aucune indication —"
+
+#: wayt-recesso-online.php:902
+msgid "Altro (specifica)…"
+msgstr "Autre (précisez)…"
+
+#: wayt-recesso-online.php:904
+msgid "Specifica il motivo (solo se hai scelto «Altro»)"
+msgstr "Précisez le motif (uniquement si vous avez choisi «Autre»)"
+
+#: wayt-recesso-online.php:905 wayt-recesso-online.php:911
+msgid ""
+"Il recesso non richiede alcuna motivazione: questo campo e' del tutto "
+"facoltativo."
+msgstr ""
+"La rétractation n'exige aucun motif : ce champ est entièrement facultatif."
+
+#: wayt-recesso-online.php:921
+msgid "Prosegui"
+msgstr "Poursuivre"
+
+#: wayt-recesso-online.php:939
+msgid "Ordine non valido o periodo di recesso non attivo."
+msgstr "Commande non valide ou délai de rétractation non actif."
+
+#: wayt-recesso-online.php:945
+msgid "Conferma il recesso"
+msgstr "Confirmez la rétractation"
+
+#: wayt-recesso-online.php:948 wayt-recesso-online.php:1796
+msgid "Ordine"
+msgstr "Commande"
+
+#: wayt-recesso-online.php:949
+msgid "Nome"
+msgstr "Nom"
+
+#: wayt-recesso-online.php:950 wayt-recesso-online.php:2232
+msgid "Email conferma"
+msgstr "E-mail de confirmation"
+
+#: wayt-recesso-online.php:951 wayt-recesso-online.php:1798
+#: wayt-recesso-online.php:2235
+msgid "Oggetto"
+msgstr "Objet"
+
+#: wayt-recesso-online.php:954
+msgid "Recesso parziale:"
+msgstr "Rétractation partielle :"
+
+#: wayt-recesso-online.php:957 wayt-recesso-online.php:1812
+msgid "Intero ordine"
+msgstr "Totalité de la commande"
+
+#: wayt-recesso-online.php:962
+msgid "Motivo"
+msgstr "Motif"
+
+#: wayt-recesso-online.php:967
+msgid ""
+"Premendo \"Conferma recesso\" invii la dichiarazione. Riceverai un avviso di "
+"ricevimento su supporto durevole con data e ora."
+msgstr ""
+"En cliquant sur \"Confirmer la rétractation\", vous envoyez la déclaration. "
+"Vous recevrez un accusé de réception sur un support durable avec la date et "
+"l'heure."
+
+#: wayt-recesso-online.php:1077
+msgid "Questa richiesta di recesso risulta gia' inviata."
+msgstr "Cette demande de rétractation a déjà été envoyée."
+
+#: wayt-recesso-online.php:1087
+msgid "Ordine non valido."
+msgstr "Commande non valide."
+
+#: wayt-recesso-online.php:1100
+msgid "Dati incompleti: nome ed email sono obbligatori."
+msgstr "Données incomplètes : le nom et l'e-mail sont obligatoires."
+
+#: wayt-recesso-online.php:1108
+msgid ""
+"Richiesta di recesso gia' in elaborazione: attendi qualche istante e "
+"ricarica la pagina."
+msgstr ""
+"Demande de rétractation déjà en cours de traitement : patientez quelques "
+"instants et rechargez la page."
+
+#. translators: 1: scope, 2: data/ora
+#: wayt-recesso-online.php:1159
+#, php-format
+msgid ""
+"Recesso esercitato dal cliente tramite funzione online (art. 54-bis). "
+"Oggetto: %1$s. Trasmesso il %2$s."
+msgstr ""
+"Rétractation exercée par le client via la fonction en ligne (art. 54-bis). "
+"Objet : %1$s. Transmise le %2$s."
+
+#: wayt-recesso-online.php:1160
+msgid "parziale"
+msgstr "partielle"
+
+#: wayt-recesso-online.php:1160
+msgid "intero ordine"
+msgstr "totalité de la commande"
+
+#. translators: %d: id rimborso
+#: wayt-recesso-online.php:1182
+#, php-format
+msgid "Rimborso automatico creato in seguito al recesso (rimborso #%d)."
+msgstr ""
+"Remboursement automatique créé à la suite de la rétractation (remboursement "
+"#%d)."
+
+#: wayt-recesso-online.php:1228
+msgid "Recesso registrato"
+msgstr "Rétractation enregistrée"
+
+#. translators: %s: email
+#: wayt-recesso-online.php:1232
+#, php-format
+msgid ""
+"Abbiamo ricevuto la tua dichiarazione di recesso. Un avviso di ricevimento "
+"con data e ora di trasmissione e' stato inviato a %s."
+msgstr ""
+"Nous avons reçu votre déclaration de rétractation. Un accusé de réception "
+"indiquant la date et l'heure de transmission a été envoyé à %s."
+
+#: wayt-recesso-online.php:1236
+msgid ""
+"Abbiamo registrato la tua dichiarazione di recesso, ma non e' stato "
+"possibile inviare l'avviso via email in questo momento. La registrazione "
+"resta valida: conserva o stampa questa pagina come ricevuta e, se non ricevi "
+"l'avviso a breve, contatta il venditore."
+msgstr ""
+"Nous avons enregistré votre déclaration de rétractation, mais il n'a pas été "
+"possible d'envoyer l'accusé de réception par e-mail pour le moment. "
+"L'enregistrement reste valable : conservez ou imprimez cette page comme reçu "
+"et, si vous ne recevez pas l'accusé de réception sous peu, contactez le "
+"vendeur."
+
+#. translators: %s: data ora
+#: wayt-recesso-online.php:1240
+#, php-format
+msgid "Data e ora di trasmissione: %s"
+msgstr "Date et heure de transmission : %s"
+
+#: wayt-recesso-online.php:1256
+msgid "Dichiarazione di recesso (art. 54-bis Codice del Consumo)"
+msgstr "Déclaration de rétractation (art. 54-bis du Code de la consommation)"
+
+#. translators: %s: numero ordine.
+#: wayt-recesso-online.php:1258
+#, php-format
+msgid "Ordine: #%s"
+msgstr "Commande : #%s"
+
+#. translators: %s: data dell'ordine.
+#: wayt-recesso-online.php:1260
+#, php-format
+msgid "Data ordine: %s"
+msgstr "Date de la commande : %s"
+
+#. translators: %s: nome del consumatore.
+#: wayt-recesso-online.php:1262
+#, php-format
+msgid "Consumatore: %s"
+msgstr "Consommateur : %s"
+
+#. translators: %s: email per la conferma.
+#: wayt-recesso-online.php:1264
+#, php-format
+msgid "Email per la conferma: %s"
+msgstr "E-mail pour la confirmation : %s"
+
+#: wayt-recesso-online.php:1267
+msgid "Oggetto: recesso parziale dai seguenti articoli:"
+msgstr "Objet : rétractation partielle des articles suivants :"
+
+#: wayt-recesso-online.php:1272
+msgid "Oggetto: recesso dall'intero ordine."
+msgstr "Objet : rétractation de la totalité de la commande."
+
+#. translators: %s: motivo (facoltativo) indicato dal consumatore.
+#: wayt-recesso-online.php:1277
+#, php-format
+msgid "Motivo (facoltativo): %s"
+msgstr "Motif (facultatif) : %s"
+
+#. translators: %s: data e ora di trasmissione.
+#: wayt-recesso-online.php:1280
+#, php-format
+msgid "Trasmesso il: %s"
+msgstr "Transmise le : %s"
+
+#: wayt-recesso-online.php:1305
+msgid ""
+"Il presente messaggio costituisce avviso di ricevimento della tua "
+"dichiarazione di recesso su supporto durevole, ai sensi dell'art. 54-bis del "
+"Codice del Consumo."
+msgstr ""
+"Le présent message constitue l'accusé de réception de votre déclaration de "
+"rétractation sur un support durable, conformément à l'art. 54-bis du Code de "
+"la consommation."
+
+#: wayt-recesso-online.php:1312
+msgid "Data e ora di trasmissione:"
+msgstr "Date et heure de transmission :"
+
+#. translators: %s: numero ordine
+#: wayt-recesso-online.php:1365
+#, php-format
+msgid "[Recesso] Nuova richiesta per ordine #%s"
+msgstr "[Rétractation] Nouvelle demande pour la commande #%s"
+
+#: wayt-recesso-online.php:1368
+msgid "E' stata registrata una richiesta di recesso online."
+msgstr "Une demande de rétractation en ligne a été enregistrée."
+
+#: wayt-recesso-online.php:1370
+msgid "Apri l'ordine"
+msgstr "Ouvrir la commande"
+
+#: wayt-recesso-online.php:1439 wayt-recesso-online.php:1542
+msgid "Impostazioni"
+msgstr "Réglages"
+
+#: wayt-recesso-online.php:1449 wayt-recesso-online.php:1450
+msgid "Recesso Online"
+msgstr "Rétractation en ligne"
+
+#: wayt-recesso-online.php:1538
+msgid "Recesso Online (art. 54-bis)"
+msgstr "Rétractation en ligne (art. 54-bis)"
+
+#: wayt-recesso-online.php:1541
+msgid "Richieste"
+msgstr "Demandes"
+
+#: wayt-recesso-online.php:1543
+msgid "Conformità"
+msgstr "Conformité"
+
+#: wayt-recesso-online.php:1577
+msgid "Giorni di recesso"
+msgstr "Jours de rétractation"
+
+#: wayt-recesso-online.php:1578
+msgid "Default di legge: 14."
+msgstr "Valeur légale par défaut : 14."
+
+#: wayt-recesso-online.php:1581
+msgid "Da quando decorre"
+msgstr "Point de départ du délai"
+
+#: wayt-recesso-online.php:1586
+msgid "Ordine completato"
+msgstr "Commande terminée"
+
+#: wayt-recesso-online.php:1587
+msgid "Pagamento ricevuto"
+msgstr "Paiement reçu"
+
+#: wayt-recesso-online.php:1588
+msgid "Creazione ordine"
+msgstr "Création de la commande"
+
+#: wayt-recesso-online.php:1589
+msgid "Data consegna (meta)"
+msgstr "Date de livraison (meta)"
+
+#: wayt-recesso-online.php:1596
+msgid ""
+"Per i beni il termine decorre dal ricevimento. Se usi un campo \"data "
+"consegna\", indica la meta key qui sotto."
+msgstr ""
+"Pour les biens, le délai court à compter de la réception. Si vous utilisez "
+"un champ \"date de livraison\", indiquez la meta key ci-dessous."
+
+#: wayt-recesso-online.php:1601
+msgid "Stati ordine eleggibili"
+msgstr "Statuts de commande éligibles"
+
+#: wayt-recesso-online.php:1622
+msgid "Etichetta pulsante"
+msgstr "Libellé du bouton"
+
+#: wayt-recesso-online.php:1623
+msgid "La norma richiede \"Recedere dal contratto qui\" o formula equivalente."
+msgstr ""
+"La réglementation exige \"Se rétracter du contrat ici\" ou une formule "
+"équivalente."
+
+#: wayt-recesso-online.php:1626
+msgid "Etichetta conferma"
+msgstr "Libellé de confirmation"
+
+#: wayt-recesso-online.php:1630
+msgid "Opzioni form"
+msgstr "Options du formulaire"
+
+#: wayt-recesso-online.php:1632
+msgid "Consenti recesso parziale (selezione articoli)"
+msgstr "Autoriser la rétractation partielle (sélection d'articles)"
+
+#: wayt-recesso-online.php:1633
+msgid "Mostra campo motivo (sempre facoltativo)"
+msgstr "Afficher le champ motif (toujours facultatif)"
+
+#: wayt-recesso-online.php:1634
+msgid "Mostra nota precontrattuale al checkout (classico)"
+msgstr "Afficher la note précontractuelle au paiement (classique)"
+
+#: wayt-recesso-online.php:1635
+msgid "Mostra nota precontrattuale al checkout a blocchi"
+msgstr "Afficher la note précontractuelle au paiement par blocs"
+
+#: wayt-recesso-online.php:1639
+msgid "Stato dopo il recesso"
+msgstr "Statut après la rétractation"
+
+#: wayt-recesso-online.php:1642
+msgid "Recesso richiesto (custom)"
+msgstr "Rétractation demandée (personnalisé)"
+
+#: wayt-recesso-online.php:1643
+msgid "In sospeso"
+msgstr "En attente"
+
+#: wayt-recesso-online.php:1644
+msgid "Non cambiare (solo nota)"
+msgstr "Ne pas modifier (note seulement)"
+
+#: wayt-recesso-online.php:1649
+msgid "Email notifiche merchant"
+msgstr "E-mail de notification du marchand"
+
+#: wayt-recesso-online.php:1653
+msgid "Oggetto email cliente"
+msgstr "Objet de l'e-mail client"
+
+#: wayt-recesso-online.php:1654
+msgid "Placeholder disponibile: {order_number}"
+msgstr "Placeholder disponible : {order_number}"
+
+#: wayt-recesso-online.php:1657
+msgid "Titolo email cliente"
+msgstr "Titre de l'e-mail client"
+
+#: wayt-recesso-online.php:1661
+msgid "Testo informativa precontrattuale"
+msgstr "Texte de l'information précontractuelle"
+
+#: wayt-recesso-online.php:1662
+msgid "Usa lo shortcode [wayt_recesso_info] dove serve."
+msgstr "Utilisez le shortcode [wayt_recesso_info] là où nécessaire."
+
+#: wayt-recesso-online.php:1665
+msgid "URL modulo tipo di recesso"
+msgstr "URL du formulaire type de rétractation"
+
+#: wayt-recesso-online.php:1666
+msgid "Allegato I, parte B: resta obbligatorio oltre alla funzione online."
+msgstr ""
+"Annexe I, partie B : reste obligatoire en plus de la fonction en ligne."
+
+#: wayt-recesso-online.php:1669
+msgid "Pagina funzione di recesso"
+msgstr "Page de la fonction de rétractation"
+
+#: wayt-recesso-online.php:1679
+msgid "— Seleziona —"
+msgstr "— Sélectionner —"
+
+#: wayt-recesso-online.php:1684
+msgid "Pagina che contiene lo shortcode [wayt_recesso]."
+msgstr "Page contenant le shortcode [wayt_recesso]."
+
+#: wayt-recesso-online.php:1687
+msgid "Funzioni avanzate"
+msgstr "Fonctions avancées"
+
+#: wayt-recesso-online.php:1689
+msgid "PDF attestato"
+msgstr "PDF de l'attestation"
+
+#: wayt-recesso-online.php:1691
+msgid ""
+"Allega un PDF attestato all'avviso di ricevimento e rendilo scaricabile dal "
+"registro"
+msgstr ""
+"Joindre une attestation au format PDF à l'accusé de réception et la rendre "
+"téléchargeable depuis le registre"
+
+#: wayt-recesso-online.php:1692
+msgid ""
+"Documento generato senza servizi esterni. L'email resta comunque un supporto "
+"durevole valido anche senza PDF."
+msgstr ""
+"Document généré sans services externes. L'e-mail reste de toute façon un "
+"support durable valable même sans PDF."
+
+#: wayt-recesso-online.php:1696
+msgid "Rimborso automatico"
+msgstr "Remboursement automatique"
+
+#: wayt-recesso-online.php:1699
+msgid "Disattivato (consigliato)"
+msgstr "Désactivé (recommandé)"
+
+#: wayt-recesso-online.php:1700
+msgid "Crea rimborso per gli articoli oggetto di recesso"
+msgstr "Créer un remboursement pour les articles concernés par la rétractation"
+
+#: wayt-recesso-online.php:1701
+msgid "Crea rimborso totale dell'ordine"
+msgstr "Créer un remboursement total de la commande"
+
+#: wayt-recesso-online.php:1703
+msgid ""
+"Crea un rimborso in WooCommerce alla conferma del recesso. NON contatta "
+"automaticamente il gateway di pagamento (refund_payment = false): il "
+"rimborso effettivo va processato manualmente dal pannello o dal PSP. In caso "
+"di recesso entro 14 giorni le spese di spedizione standard vanno comunque "
+"rimborsate: valuta la voce manualmente."
+msgstr ""
+"Crée un remboursement dans WooCommerce lors de la confirmation de la "
+"rétractation. NE contacte PAS automatiquement la passerelle de paiement "
+"(refund_payment = false) : le remboursement effectif doit être traité "
+"manuellement depuis le tableau de bord ou par le PSP. En cas de rétractation "
+"dans un délai de 14 jours, les frais de livraison standard doivent tout de "
+"même être remboursés : évaluez ce poste manuellement."
+
+#: wayt-recesso-online.php:1707
+msgid "Motivi di recesso configurabili"
+msgstr "Motifs de rétractation configurables"
+
+#: wayt-recesso-online.php:1709
+msgid "Una motivazione per riga…"
+msgstr "Un motif par ligne…"
+
+#: wayt-recesso-online.php:1710
+msgid ""
+"Se compilato, il campo motivo diventa un menu a tendina (con opzione "
+"«Altro»). Lasciato vuoto, resta un campo di testo libero. Il motivo è sempre "
+"facoltativo."
+msgstr ""
+"S'il est renseigné, le champ motif devient un menu déroulant (avec une "
+"option «Autre»). Laissé vide, il reste un champ de texte libre. Le motif est "
+"toujours facultatif."
+
+#: wayt-recesso-online.php:1714
+msgid "Esclusioni dal recesso (art. 59)"
+msgstr "Exclusions de la rétractation (art. 59)"
+
+#: wayt-recesso-online.php:1717
+msgid "ID prodotti esclusi"
+msgstr "ID des produits exclus"
+
+#: wayt-recesso-online.php:1721
+msgid "Slug categorie escluse"
+msgstr "Slugs des catégories exclues"
+
+#: wayt-recesso-online.php:1724
+msgid ""
+"Gli articoli esclusi non sono selezionabili nel form; se l'intero ordine è "
+"composto solo da articoli esclusi, il pulsante non viene mostrato. Puoi "
+"anche spuntare «Escluso dal recesso» nella singola scheda prodotto."
+msgstr ""
+"Les articles exclus ne peuvent pas être sélectionnés dans le formulaire ; si "
+"la totalité de la commande est composée uniquement d'articles exclus, le "
+"bouton n'est pas affiché. Vous pouvez également cocher «Exclu de la "
+"rétractation» sur la fiche produit individuelle."
+
+#: wayt-recesso-online.php:1728
+msgid "Mittente avviso (nome)"
+msgstr "Expéditeur de l'accusé de réception (nom)"
+
+#: wayt-recesso-online.php:1731
+msgid "Vuoto = usa il mittente predefinito di WooCommerce."
+msgstr "Vide = utilise l'expéditeur par défaut de WooCommerce."
+
+#: wayt-recesso-online.php:1735
+msgid "Reply-To avviso"
+msgstr "Reply-To de l'accusé de réception"
+
+#: wayt-recesso-online.php:1739
+msgid "Testo introduttivo avviso"
+msgstr "Texte d'introduction de l'accusé de réception"
+
+#: wayt-recesso-online.php:1742
+msgid ""
+"Sostituisce il paragrafo introduttivo dell'email di avviso. Vuoto = testo "
+"predefinito (riferimento all'art. 54-bis). La dichiarazione, la data e l'ora "
+"vengono sempre aggiunte automaticamente."
+msgstr ""
+"Remplace le paragraphe d'introduction de l'e-mail d'accusé de réception. "
+"Vide = texte par défaut (référence à l'art. 54-bis). La déclaration, la date "
+"et l'heure sont toujours ajoutées automatiquement."
+
+#: wayt-recesso-online.php:1746
+msgid "Colore principale"
+msgstr "Couleur principale"
+
+#: wayt-recesso-online.php:1747
+msgid "Usato per il pulsante di conferma e i dettagli del form."
+msgstr "Utilisée pour le bouton de confirmation et les détails du formulaire."
+
+#: wayt-recesso-online.php:1750
+msgid "CSS personalizzato"
+msgstr "CSS personnalisé"
+
+#: wayt-recesso-online.php:1753
+msgid "CSS applicato alle pagine che contengono il form di recesso."
+msgstr "CSS appliqué aux pages contenant le formulaire de rétractation."
+
+#: wayt-recesso-online.php:1757
+msgid "Disinstallazione"
+msgstr "Désinstallation"
+
+#: wayt-recesso-online.php:1759
+msgid ""
+"Elimina anche il registro recessi e i dati alla disinstallazione del plugin"
+msgstr ""
+"Supprimer également le registre des rétractations et les données lors de la "
+"désinstallation de l'extension"
+
+#: wayt-recesso-online.php:1760
+msgid ""
+"Sconsigliato: il registro dei recessi è una prova di conformità. Se lasciato "
+"deselezionato, alla disinstallazione vengono rimosse solo le impostazioni, "
+"mentre lo storico resta nel database."
+msgstr ""
+"Déconseillé : le registre des rétractations constitue une preuve de "
+"conformité. S'il est laissé décoché, seuls les réglages sont supprimés lors "
+"de la désinstallation, tandis que l'historique demeure dans la base de "
+"données."
+
+#: wayt-recesso-online.php:1787
+msgid "Esporta CSV"
+msgstr "Exporter en CSV"
+
+#: wayt-recesso-online.php:1790
+msgid "Nessuna richiesta di recesso registrata."
+msgstr "Aucune demande de rétractation enregistrée."
+
+#: wayt-recesso-online.php:1795
+msgid "Data/ora"
+msgstr "Date/heure"
+
+#: wayt-recesso-online.php:1797
+msgid "Cliente"
+msgstr "Client"
+
+#: wayt-recesso-online.php:1799
+msgid "Stato"
+msgstr "Statut"
+
+#: wayt-recesso-online.php:1800
+msgid "Avviso inviato"
+msgstr "Accusé de réception envoyé"
+
+#: wayt-recesso-online.php:1801
+msgid "Azioni"
+msgstr "Actions"
+
+#: wayt-recesso-online.php:1812
+msgid "Parziale"
+msgstr "Partielle"
+
+#: wayt-recesso-online.php:1821
+msgid "Segna gestito"
+msgstr "Marquer comme traité"
+
+#: wayt-recesso-online.php:1827
+msgid "Scarica PDF"
+msgstr "Télécharger le PDF"
+
+#: wayt-recesso-online.php:1861
+msgid "Pagina della funzione di recesso pubblicata con [wayt_recesso]"
+msgstr "Page de la fonction de rétractation publiée avec [wayt_recesso]"
+
+#: wayt-recesso-online.php:1865
+msgid ""
+"Etichetta pulsante conforme (\"Recedere dal contratto qui\" o equivalente)"
+msgstr ""
+"Libellé du bouton conforme (\"Se rétracter du contrat ici\" ou équivalent)"
+
+#: wayt-recesso-online.php:1869
+msgid "Comando di conferma presente"
+msgstr "Commande de confirmation présente"
+
+#: wayt-recesso-online.php:1873
+msgid "Avviso di ricevimento su supporto durevole configurato (email cliente)"
+msgstr "Accusé de réception sur un support durable configuré (e-mail client)"
+
+#: wayt-recesso-online.php:1877
+msgid "Informativa precontrattuale impostata"
+msgstr "Information précontractuelle définie"
+
+#: wayt-recesso-online.php:1881
+msgid "Link al modulo tipo (Allegato I parte B) impostato"
+msgstr "Lien vers le formulaire type (Annexe I partie B) défini"
+
+#: wayt-recesso-online.php:1885
+msgid "Motivo del recesso impostato come facoltativo"
+msgstr "Motif de la rétractation défini comme facultatif"
+
+#: wayt-recesso-online.php:1889
+msgid "Finestra di recesso >= 14 giorni"
+msgstr "Délai de rétractation >= 14 jours"
+
+#: wayt-recesso-online.php:1893
+msgid "PDF attestato del recesso attivo (allegato su supporto durevole)"
+msgstr ""
+"PDF d'attestation de la rétractation activé (joint sur un support durable)"
+
+#: wayt-recesso-online.php:1897
+msgid "Eccezioni al recesso (art. 59) configurate o nessun prodotto escluso"
+msgstr ""
+"Exceptions à la rétractation (art. 59) configurées ou aucun produit exclu"
+
+#: wayt-recesso-online.php:1902
+msgid ""
+"Verifica rapida dei requisiti tecnici dell'art. 54-bis. Questo non "
+"sostituisce la consulenza legale sulle condizioni generali di vendita."
+msgstr ""
+"Vérification rapide des exigences techniques de l'art. 54-bis. Cela ne "
+"remplace pas un conseil juridique sur les conditions générales de vente."
+
+#: wayt-recesso-online.php:1910
+msgid "Shortcode disponibili"
+msgstr "Shortcodes disponibles"
+
+#: wayt-recesso-online.php:1912
+msgid "la funzione di recesso (pagina dedicata)."
+msgstr "la fonction de rétractation (page dédiée)."
+
+#: wayt-recesso-online.php:1913
+msgid "nota informativa precontrattuale + link."
+msgstr "note d'information précontractuelle + lien."
+
+#: wayt-recesso-online.php:1937 wayt-recesso-online.php:1984
+#: wayt-recesso-online.php:2318
+msgid "Permessi insufficienti."
+msgstr "Autorisations insuffisantes."
+
+#: wayt-recesso-online.php:2158
+msgid "Escluso dal recesso"
+msgstr "Exclu de la rétractation"
+
+#: wayt-recesso-online.php:2159
+msgid ""
+"Spunta se il prodotto rientra nelle eccezioni al diritto di recesso (art. "
+"59): beni su misura, sigillati aperti, deperibili, ecc."
+msgstr ""
+"Cochez si le produit relève des exceptions au droit de rétractation (art. "
+"59) : biens sur mesure, scellés ouverts, périssables, etc."
+
+#: wayt-recesso-online.php:2226
+msgid "Ordine n."
+msgstr "Commande n°"
+
+#: wayt-recesso-online.php:2229
+msgid "Data ordine"
+msgstr "Date de la commande"
+
+#: wayt-recesso-online.php:2231
+msgid "Consumatore"
+msgstr "Consommateur"
+
+#: wayt-recesso-online.php:2233
+msgid "Data e ora"
+msgstr "Date et heure"
+
+#: wayt-recesso-online.php:2236
+msgid "Recesso parziale"
+msgstr "Rétractation partielle"
+
+#: wayt-recesso-online.php:2236
+msgid "Recesso totale"
+msgstr "Rétractation totale"
+
+#: wayt-recesso-online.php:2240
+msgid "Attestato di recesso"
+msgstr "Attestation de rétractation"
+
+#: wayt-recesso-online.php:2242
+msgid "Dichiarazione resa dal consumatore"
+msgstr "Déclaration faite par le consommateur"
+
+#. translators: %s: nome sito
+#: wayt-recesso-online.php:2246
+#, php-format
+msgid ""
+"Documento generato da %s ai sensi dell'art. 54-bis Cod. Consumo - non "
+"costituisce consulenza legale."
+msgstr ""
+"Document généré par %s conformément à l'art. 54-bis du Code de la "
+"consommation - ne constitue pas un conseil juridique."
+
+#: wayt-recesso-online.php:2328
+msgid "Richiesta non trovata."
+msgstr "Demande introuvable."
+
+#: wayt-recesso-online.php:2379
+msgid "Recesso esercitato (art. 54-bis Cod. Consumo)"
+msgstr "Rétractation exercée (art. 54-bis du Code de la consommation)"

@@ -15,6 +15,10 @@ Legenda complessità: **S** ≤1 g · **M** 2-4 g · **L** ≥1 settimana.
 ## Priorità 1 — Alto valore, basso rischio
 
 ### R1. Traduzioni complete it / en / de
+> **Stato (0.2.0):** spedite traduzioni attive per **en/de/fr/es** (it = sorgente);
+> le altre lingue UE restano in fallback all'italiano o via PR della community,
+> per non rimuovere la rete di sicurezza del fallback sulle stringhe legali.
+
 - **Valore**: ★★★★★ — il plugin è IT-first ma la norma è UE; EN e DE aprono i
   mercati con più e-commerce dell'area. Aumenta installazioni e fiducia.
 - **Complessità**: S/M (workflow `.po/.mo` + revisione terminologica legale).
@@ -118,6 +122,12 @@ valore alto sulla qualità, rischio basso:
 - **H-S1** anti-CSV-injection nell'export (P2).
 - **H-S2** hardening cartella PDF temporanea + cleanup garantito (P2).
 - **H-S3** avviso vincolato alla `billing_email` (P2, privacy/anti-relay).
+  *Stato:* implementato e poi **rinviato**: l'art. 54-bis c.3 lett. c contempla
+  il "mezzo elettronico fornito dal consumatore", quindi vincolare il
+  destinatario all'email dell'ordine restringe quella flessibilità. Da
+  reintrodurre come **opzione opt-in** previa conferma legale, mantenendo il
+  default conforme (email indicata dal consumatore). Il throttling (H-S4) resta
+  attivo come misura anti-abuso che non tocca tale flessibilità.
 - **H-S4** throttling del lookup ospite (P2).
 - **H-P1f** memoizzazione delle query di esclusione/registro (P2, performance).
 - **H-I1/2/3** rifiniture i18n e accessibilità (P3): commenti translators,
