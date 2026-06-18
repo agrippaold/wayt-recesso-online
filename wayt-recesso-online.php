@@ -1057,10 +1057,24 @@ final class WAYT_Recesso_Online {
 			wc_print_notice( __( 'Il periodo di recesso per questo ordine non e\' attivo.', 'wayt-recesso' ), 'error' );
 			return;
 		}
+		// Idempotenza: un recesso totale gia' registrato per l'ordine blocca nuove richieste.
+		if ( $this->already_withdrawn( $order->get_id() ) ) {
+			wc_print_notice( __( 'Per questo ordine risulta gia\' registrato un recesso.', 'wayt-recesso' ), 'notice' );
+			return;
+		}
 		if ( '' === $data['name'] || ! is_email( $data['email'] ) ) {
 			wc_print_notice( __( 'Dati incompleti: nome ed email sono obbligatori.', 'wayt-recesso' ), 'error' );
 			return;
 		}
+
+		// Lock per-ordine: serializza richieste concorrenti ed evita il doppio invio
+		// quando il token di form e' stato rigenerato da un nuovo render della pagina.
+		$proc_lock = 'wayt_recesso_proc_' . $order->get_id();
+		if ( get_transient( $proc_lock ) ) {
+			wc_print_notice( __( 'Richiesta di recesso gia\' in elaborazione: attendi qualche istante e ricarica la pagina.', 'wayt-recesso' ), 'notice' );
+			return;
+		}
+		set_transient( $proc_lock, 1, MINUTE_IN_SECONDS );
 
 		$now_local = new DateTimeImmutable( 'now', wp_timezone() );
 		$now_gmt   = new DateTimeImmutable( 'now', new DateTimeZone( 'UTC' ) );
@@ -1164,6 +1178,10 @@ final class WAYT_Recesso_Online {
 		 */
 		// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- namespacing intenzionale con "/" per gli hook pubblici del plugin.
 		do_action( 'wayt_recesso/confermato', $request_id, $order, $data );
+
+		// Elaborazione completata: rilascia il lock (per i recessi totali subentra
+		// comunque already_withdrawn() a bloccare ulteriori invii).
+		delete_transient( $proc_lock );
 
 		// Esito.
 		echo '<div class="wayt-recesso-success" style="padding:1.25em;border:1px solid #2e7d32;border-radius:8px;background:#edf7ed;">';
@@ -2265,27 +2283,41 @@ final class WAYT_Recesso_Online {
 				$amount     = 0.0;
 				$line_items = [];
 				foreach ( (array) $data['items'] as $iid ) {
-					$item = $order->get_item( (int) $iid );
-					if ( ! $item ) {
+					$iid  = (int) $iid;
+					$item = $order->get_item( $iid );
+					if ( ! $item instanceof WC_Order_Item_Product ) {
 						continue;
 					}
-					$total      = (float) $item->get_total();
+					// Idempotenza importi: rimborsa solo il residuo non ancora rimborsato per l'articolo.
+					$line_total = (float) $item->get_total();
+					$already    = (float) $order->get_total_refunded_for_item( $iid );
+					$refundable = round( $line_total - $already, 2 );
+					if ( $refundable <= 0 ) {
+						continue;
+					}
+					$qty_already = abs( (int) $order->get_qty_refunded_for_item( $iid ) );
+					$qty_left    = max( 0, (int) $item->get_quantity() - $qty_already );
+
 					$refund_tax = [];
 					$tax_total  = 0.0;
-					$taxes      = method_exists( $item, 'get_taxes' ) ? $item->get_taxes() : [];
+					$taxes      = $item->get_taxes();
 					if ( isset( $taxes['total'] ) && is_array( $taxes['total'] ) ) {
 						foreach ( $taxes['total'] as $rate_id => $t ) {
-							$t                      = (float) $t;
-							$refund_tax[ $rate_id ] = $t;
-							$tax_total             += $t;
+							$tax_already = (float) $order->get_tax_refunded_for_item( $iid, (int) $rate_id );
+							$tax_left    = round( (float) $t - $tax_already, 2 );
+							if ( $tax_left <= 0 ) {
+								continue;
+							}
+							$refund_tax[ $rate_id ] = $tax_left;
+							$tax_total             += $tax_left;
 						}
 					}
-					$line_items[ (int) $iid ] = [
-						'qty'          => $item->get_quantity(),
-						'refund_total' => $total,
+					$line_items[ $iid ] = [
+						'qty'          => $qty_left,
+						'refund_total' => $refundable,
 						'refund_tax'   => $refund_tax,
 					];
-					$amount                  += $total + $tax_total;
+					$amount            += $refundable + $tax_total;
 				}
 				if ( $amount <= 0 ) {
 					return null;
