@@ -78,6 +78,20 @@ final class WAYT_Recesso_Online {
 	private ?array $opts = null;
 
 	/**
+	 * Cache per-request dell'esclusione prodotti (art. 59).
+	 *
+	 * @var array<int,bool>
+	 */
+	private array $excluded_cache = [];
+
+	/**
+	 * Cache per-request dei recessi totali gia' registrati per ordine.
+	 *
+	 * @var array<int,bool>
+	 */
+	private array $withdrawn_cache = [];
+
+	/**
 	 * Bootstrap.
 	 */
 	public static function instance(): WAYT_Recesso_Online {
@@ -459,11 +473,16 @@ final class WAYT_Recesso_Online {
 	 * @return bool
 	 */
 	public function already_withdrawn( int $order_id ): bool {
+		if ( isset( $this->withdrawn_cache[ $order_id ] ) ) {
+			return $this->withdrawn_cache[ $order_id ];
+		}
 		global $wpdb;
 		$table = $wpdb->prefix . WAYT_RECESSO_TABLE;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nome tabella da $wpdb->prefix; valori passati via prepare().
 		$count = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE order_id = %d AND scope = %s", $order_id, 'full' ) );
-		return $count > 0;
+
+		$this->withdrawn_cache[ $order_id ] = $count > 0;
+		return $this->withdrawn_cache[ $order_id ];
 	}
 
 	/**
@@ -1115,6 +1134,10 @@ final class WAYT_Recesso_Online {
 		);
 
 		$request_id = $inserted ? (int) $wpdb->insert_id : 0;
+
+		// Invalida la cache: un'eventuale ri-verifica nella stessa richiesta
+		// (es. hook wayt_recesso/confermato) deve vedere il nuovo record.
+		unset( $this->withdrawn_cache[ $order->get_id() ] );
 
 		// Nota ordine.
 		$note = sprintf(
@@ -2033,6 +2056,19 @@ final class WAYT_Recesso_Online {
 		if ( $product_id <= 0 ) {
 			return false;
 		}
+		if ( ! isset( $this->excluded_cache[ $product_id ] ) ) {
+			$this->excluded_cache[ $product_id ] = $this->compute_item_excluded( $product_id );
+		}
+		return $this->excluded_cache[ $product_id ];
+	}
+
+	/**
+	 * Calcolo (non in cache) dell'esclusione di un prodotto dal recesso.
+	 *
+	 * @param int $product_id ID prodotto.
+	 * @return bool
+	 */
+	private function compute_item_excluded( int $product_id ): bool {
 		if ( 'yes' === get_post_meta( $product_id, '_wayt_recesso_excluded', true ) ) {
 			return true;
 		}
