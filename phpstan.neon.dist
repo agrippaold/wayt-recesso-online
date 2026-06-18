@@ -18,10 +18,5 @@ parameters:
         -
             message: '#Parameter \#[45] \$(headers|attachments) of method WC_Emails::send\(\) expects string#'
             path: wayt-recesso-online.php
-        # --- Mini-baseline temporanea: voci rimosse dai rispettivi fix dell'audit. ---
-        # Risolto dal fix C2 (wp_insert_post con $wp_error=true in maybe_create_page()).
-        -
-            message: '#is_wp_error\(int<.*>\) will always evaluate to false#'
-            path: wayt-recesso-online.php
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
