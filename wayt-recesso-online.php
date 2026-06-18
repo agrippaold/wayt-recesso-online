@@ -251,7 +251,8 @@ final class WAYT_Recesso_Online {
 				'post_content' => '[wayt_recesso]',
 				'post_status'  => 'publish',
 				'post_type'    => 'page',
-			]
+			],
+			true
 		);
 
 		if ( $page_id && ! is_wp_error( $page_id ) ) {
