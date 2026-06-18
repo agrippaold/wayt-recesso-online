@@ -23,9 +23,5 @@ parameters:
         -
             message: '#is_wp_error\(int<.*>\) will always evaluate to false#'
             path: wayt-recesso-online.php
-        # Risolto dal fix C3 (instanceof WC_Order_Item_Product in maybe_refund()).
-        -
-            message: '#Call to an undefined method WC_Order_Item::get_total\(\)#'
-            path: wayt-recesso-online.php
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
