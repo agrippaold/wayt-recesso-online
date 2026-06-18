@@ -1,0 +1,745 @@
+# Copyright (C) 2026 WAYT
+# This file is distributed under the same license as the WAYT Recesso Online plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WAYT Recesso Online 0.2.0\n"
+"Report-Msgid-Bugs-To: https://wayt.it/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-18T00:00:00+00:00\n"
+"Language-Team: Italiano\n"
+"X-Domain: wayt-recesso\n"
+
+#: wayt-recesso-online.php:1291
+msgid "[Recesso] Nuova richiesta per ordine #%s"
+msgstr ""
+
+#: wayt-recesso-online.php:1168
+msgid "Abbiamo ricevuto la tua dichiarazione di recesso. Un avviso di ricevimento con data e ora di trasmissione e' stato inviato a %s."
+msgstr ""
+
+#: wayt-recesso-online.php:214
+msgid "Abbiamo ricevuto la tua richiesta di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1607
+msgid "Allega un PDF attestato all'avviso di ricevimento e rendilo scaricabile dal registro"
+msgstr ""
+
+#: wayt-recesso-online.php:1585
+msgid "Allegato I, parte B: resta obbligatorio oltre alla funzione online."
+msgstr ""
+
+#: wayt-recesso-online.php:871
+msgid "Altro (specifica)…"
+msgstr ""
+
+#: wayt-recesso-online.php:1296
+msgid "Apri l'ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:832
+msgid "Articoli oggetto del recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:2128
+msgid "Attestato di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:213
+msgid "Avviso di ricevimento del recesso - Ordine #{order_number}"
+msgstr ""
+
+#: wayt-recesso-online.php:1791
+msgid "Avviso di ricevimento su supporto durevole configurato (email cliente)"
+msgstr ""
+
+#: wayt-recesso-online.php:1717
+msgid "Avviso inviato"
+msgstr ""
+
+#: wayt-recesso-online.php:1718
+msgid "Azioni"
+msgstr ""
+
+#: wayt-recesso-online.php:1714
+msgid "Cliente"
+msgstr ""
+
+#: wayt-recesso-online.php:1662
+msgid "Colore principale"
+msgstr ""
+
+#: wayt-recesso-online.php:1787
+msgid "Comando di conferma presente"
+msgstr ""
+
+#: wayt-recesso-online.php:914
+msgid "Conferma il recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:208
+#: wayt-recesso-online.php:956
+msgid "Conferma recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1462
+msgid "Conformità"
+msgstr ""
+
+#: wayt-recesso-online.php:1551
+msgid "Consenti recesso parziale (selezione articoli)"
+msgstr ""
+
+#: wayt-recesso-online.php:2119
+msgid "Consumatore"
+msgstr ""
+
+#: wayt-recesso-online.php:1192
+msgid "Consumatore: %s"
+msgstr ""
+
+#: wayt-recesso-online.php:739
+msgid "Continua"
+msgstr ""
+
+#: wayt-recesso-online.php:1616
+msgid "Crea rimborso per gli articoli oggetto di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1617
+msgid "Crea rimborso totale dell'ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:1619
+msgid "Crea un rimborso in WooCommerce alla conferma del recesso. NON contatta automaticamente il gateway di pagamento (refund_payment = false): il rimborso effettivo va processato manualmente dal pannello o dal PSP. In caso di recesso entro 14 giorni le spese di spedizione standard vanno comunque rimborsate: valuta la voce manualmente."
+msgstr ""
+
+#: wayt-recesso-online.php:1507
+msgid "Creazione ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:1669
+msgid "CSS applicato alle pagine che contengono il form di recesso."
+msgstr ""
+
+#: wayt-recesso-online.php:1666
+msgid "CSS personalizzato"
+msgstr ""
+
+#: wayt-recesso-online.php:1500
+msgid "Da quando decorre"
+msgstr ""
+
+#: wayt-recesso-online.php:1508
+msgid "Data consegna (meta)"
+msgstr ""
+
+#: wayt-recesso-online.php:2121
+msgid "Data e ora"
+msgstr ""
+
+#: wayt-recesso-online.php:1238
+msgid "Data e ora di trasmissione:"
+msgstr ""
+
+#: wayt-recesso-online.php:1173
+msgid "Data e ora di trasmissione: %s"
+msgstr ""
+
+#: wayt-recesso-online.php:2117
+msgid "Data ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:1191
+msgid "Data ordine: %s"
+msgstr ""
+
+#: wayt-recesso-online.php:1712
+msgid "Data/ora"
+msgstr ""
+
+#: wayt-recesso-online.php:1057
+msgid "Dati incompleti: nome ed email sono obbligatori."
+msgstr ""
+
+#: wayt-recesso-online.php:1497
+msgid "Default di legge: 14."
+msgstr ""
+
+#: wayt-recesso-online.php:800
+msgid "Dichiarazione di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1189
+msgid "Dichiarazione di recesso (art. 54-bis Codice del Consumo)"
+msgstr ""
+
+#: wayt-recesso-online.php:2130
+msgid "Dichiarazione resa dal consumatore"
+msgstr ""
+
+#: wayt-recesso-online.php:528
+msgid "Diritto di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:564
+msgid "Diritto di recesso:"
+msgstr ""
+
+#: wayt-recesso-online.php:1615
+msgid "Disattivato (consigliato)"
+msgstr ""
+
+#: wayt-recesso-online.php:1673
+msgid "Disinstallazione"
+msgstr ""
+
+#: wayt-recesso-online.php:2134
+msgid "Documento generato da %s ai sensi dell'art. 54-bis Cod. Consumo - non costituisce consulenza legale."
+msgstr ""
+
+#: wayt-recesso-online.php:1608
+msgid "Documento generato senza servizi esterni. L'email resta comunque un supporto durevole valido anche senza PDF."
+msgstr ""
+
+#: wayt-recesso-online.php:1294
+msgid "E' stata registrata una richiesta di recesso online."
+msgstr ""
+
+#: wayt-recesso-online.php:1815
+msgid "Eccezioni al recesso (art. 59) configurate o nessun prodotto escluso"
+msgstr ""
+
+#: wayt-recesso-online.php:1675
+msgid "Elimina anche il registro recessi e i dati alla disinstallazione del plugin"
+msgstr ""
+
+#: wayt-recesso-online.php:734
+msgid "Email"
+msgstr ""
+
+#: wayt-recesso-online.php:2120
+#: wayt-recesso-online.php:919
+msgid "Email conferma"
+msgstr ""
+
+#: wayt-recesso-online.php:1568
+msgid "Email notifiche merchant"
+msgstr ""
+
+#: wayt-recesso-online.php:825
+msgid "Email per la conferma di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1193
+msgid "Email per la conferma: %s"
+msgstr ""
+
+#: wayt-recesso-online.php:1630
+msgid "Esclusioni dal recesso (art. 59)"
+msgstr ""
+
+#: wayt-recesso-online.php:2045
+msgid "Escluso dal recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1704
+msgid "Esporta CSV"
+msgstr ""
+
+#: wayt-recesso-online.php:1545
+msgid "Etichetta conferma"
+msgstr ""
+
+#: wayt-recesso-online.php:1541
+msgid "Etichetta pulsante"
+msgstr ""
+
+#: wayt-recesso-online.php:1783
+msgid "Etichetta pulsante conforme (\"Recedere dal contratto qui\" o equivalente)"
+msgstr ""
+
+#: wayt-recesso-online.php:1807
+msgid "Finestra di recesso >= 14 giorni"
+msgstr ""
+
+#: wayt-recesso-online.php:1603
+msgid "Funzioni avanzate"
+msgstr ""
+
+#: wayt-recesso-online.php:1496
+msgid "Giorni di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:813
+msgid "Giorni residui: %d."
+msgstr ""
+
+#: wayt-recesso-online.php:1640
+msgid "Gli articoli esclusi non sono selezionabili nel form; se l'intero ordine è composto solo da articoli esclusi, il pulsante non viene mostrato. Puoi anche spuntare «Escluso dal recesso» nella singola scheda prodotto."
+msgstr ""
+
+#: wayt-recesso-online.php:215
+msgid "Hai diritto di recedere dal contratto entro 14 giorni senza fornire alcuna motivazione. Potrai esercitare il recesso in modo semplice e diretto tramite l'apposita funzione \"Recedi dal contratto qui\" disponibile nella tua area ordini e alla pagina dedicata al recesso, oltre che tramite il modulo tipo di recesso."
+msgstr ""
+
+#: wayt-recesso-online.php:766
+msgid "I tuoi ordini per cui puoi recedere"
+msgstr ""
+
+#: wayt-recesso-online.php:1633
+msgid "ID prodotti esclusi"
+msgstr ""
+
+#: wayt-recesso-online.php:1053
+#: wayt-recesso-online.php:787
+msgid "Il periodo di recesso per questo ordine non e' attivo."
+msgstr ""
+
+#: wayt-recesso-online.php:1231
+msgid "Il presente messaggio costituisce avviso di ricevimento della tua dichiarazione di recesso su supporto durevole, ai sensi dell'art. 54-bis del Codice del Consumo."
+msgstr ""
+
+#: wayt-recesso-online.php:874
+#: wayt-recesso-online.php:880
+msgid "Il recesso non richiede alcuna motivazione: questo campo e' del tutto facoltativo."
+msgstr ""
+
+#: wayt-recesso-online.php:1359
+#: wayt-recesso-online.php:1461
+msgid "Impostazioni"
+msgstr ""
+
+#: wayt-recesso-online.php:1562
+msgid "In sospeso"
+msgstr ""
+
+#: wayt-recesso-online.php:1795
+msgid "Informativa precontrattuale impostata"
+msgstr ""
+
+#: wayt-recesso-online.php:728
+msgid "Inserisci il numero del tuo ordine e l'email utilizzata per l'acquisto."
+msgstr ""
+
+#: wayt-recesso-online.php:1730
+#: wayt-recesso-online.php:926
+msgid "Intero ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:1104
+msgid "intero ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:1830
+msgid "la funzione di recesso (pagina dedicata)."
+msgstr ""
+
+#: wayt-recesso-online.php:1542
+msgid "La norma richiede \"Recedere dal contratto qui\" o formula equivalente."
+msgstr ""
+
+#: wayt-recesso-online.php:1799
+msgid "Link al modulo tipo (Allegato I parte B) impostato"
+msgstr ""
+
+#: wayt-recesso-online.php:1644
+msgid "Mittente avviso (nome)"
+msgstr ""
+
+#: wayt-recesso-online.php:1552
+msgid "Mostra campo motivo (sempre facoltativo)"
+msgstr ""
+
+#: wayt-recesso-online.php:1553
+msgid "Mostra nota precontrattuale al checkout (classico)"
+msgstr ""
+
+#: wayt-recesso-online.php:1554
+msgid "Mostra nota precontrattuale al checkout a blocchi"
+msgstr ""
+
+#: wayt-recesso-online.php:1623
+msgid "Motivi di recesso configurabili"
+msgstr ""
+
+#: wayt-recesso-online.php:931
+msgid "Motivo"
+msgstr ""
+
+#: wayt-recesso-online.php:865
+#: wayt-recesso-online.php:878
+msgid "Motivo (facoltativo)"
+msgstr ""
+
+#: wayt-recesso-online.php:1205
+msgid "Motivo (facoltativo): %s"
+msgstr ""
+
+#: wayt-recesso-online.php:1803
+msgid "Motivo del recesso impostato come facoltativo"
+msgstr ""
+
+#: wayt-recesso-online.php:1707
+msgid "Nessuna richiesta di recesso registrata."
+msgstr ""
+
+#: wayt-recesso-online.php:918
+msgid "Nome"
+msgstr ""
+
+#: wayt-recesso-online.php:821
+msgid "Nome e cognome"
+msgstr ""
+
+#: wayt-recesso-online.php:1563
+msgid "Non cambiare (solo nota)"
+msgstr ""
+
+#: wayt-recesso-online.php:1831
+msgid "nota informativa precontrattuale + link."
+msgstr ""
+
+#: wayt-recesso-online.php:730
+msgid "Numero ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:709
+msgid "Numero ordine non valido."
+msgstr ""
+
+#: wayt-recesso-online.php:1715
+#: wayt-recesso-online.php:2123
+#: wayt-recesso-online.php:920
+msgid "Oggetto"
+msgstr ""
+
+#: wayt-recesso-online.php:1572
+msgid "Oggetto email cliente"
+msgstr ""
+
+#: wayt-recesso-online.php:1201
+msgid "Oggetto: recesso dall'intero ordine."
+msgstr ""
+
+#: wayt-recesso-online.php:1196
+msgid "Oggetto: recesso parziale dai seguenti articoli:"
+msgstr ""
+
+#: wayt-recesso-online.php:1549
+msgid "Opzioni form"
+msgstr ""
+
+#: wayt-recesso-online.php:1713
+#: wayt-recesso-online.php:917
+msgid "Ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:805
+msgid "Ordine #%1$s del %2$s."
+msgstr ""
+
+#: wayt-recesso-online.php:1505
+msgid "Ordine completato"
+msgstr ""
+
+#: wayt-recesso-online.php:2114
+msgid "Ordine n."
+msgstr ""
+
+#: wayt-recesso-online.php:715
+msgid "Ordine non trovato o email non corrispondente."
+msgstr ""
+
+#: wayt-recesso-online.php:908
+msgid "Ordine non valido o periodo di recesso non attivo."
+msgstr ""
+
+#: wayt-recesso-online.php:1049
+msgid "Ordine non valido."
+msgstr ""
+
+#: wayt-recesso-online.php:1190
+msgid "Ordine: #%s"
+msgstr ""
+
+#: wayt-recesso-online.php:1506
+msgid "Pagamento ricevuto"
+msgstr ""
+
+#: wayt-recesso-online.php:1600
+msgid "Pagina che contiene lo shortcode [wayt_recesso]."
+msgstr ""
+
+#: wayt-recesso-online.php:1779
+msgid "Pagina della funzione di recesso pubblicata con [wayt_recesso]"
+msgstr ""
+
+#: wayt-recesso-online.php:1588
+msgid "Pagina funzione di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1730
+msgid "Parziale"
+msgstr ""
+
+#: wayt-recesso-online.php:1104
+msgid "parziale"
+msgstr ""
+
+#: wayt-recesso-online.php:1605
+msgid "PDF attestato"
+msgstr ""
+
+#: wayt-recesso-online.php:1811
+msgid "PDF attestato del recesso attivo (allegato su supporto durevole)"
+msgstr ""
+
+#: wayt-recesso-online.php:1515
+msgid "Per i beni il termine decorre dal ricevimento. Se usi un campo \"data consegna\", indica la meta key qui sotto."
+msgstr ""
+
+#: wayt-recesso-online.php:791
+msgid "Per questo ordine risulta gia' registrato un recesso."
+msgstr ""
+
+#: wayt-recesso-online.php:1840
+#: wayt-recesso-online.php:1884
+#: wayt-recesso-online.php:2184
+msgid "Permessi insufficienti."
+msgstr ""
+
+#: wayt-recesso-online.php:1573
+msgid "Placeholder disponibile: {order_number}"
+msgstr ""
+
+#: wayt-recesso-online.php:936
+msgid "Premendo \"Conferma recesso\" invii la dichiarazione. Riceverai un avviso di ricevimento su supporto durevole con data e ora."
+msgstr ""
+
+#: wayt-recesso-online.php:890
+msgid "Prosegui"
+msgstr ""
+
+#: wayt-recesso-online.php:532
+msgid "Puoi esercitare il recesso per ancora %d giorni."
+msgstr ""
+
+#: wayt-recesso-online.php:1039
+msgid "Questa richiesta di recesso risulta gia' inviata."
+msgstr ""
+
+#: wayt-recesso-online.php:207
+#: wayt-recesso-online.php:508
+#: wayt-recesso-online.php:539
+#: wayt-recesso-online.php:561
+#: wayt-recesso-online.php:727
+#: wayt-recesso-online.php:773
+msgid "Recedi dal contratto qui"
+msgstr ""
+
+#: wayt-recesso-online.php:835
+msgid "Recedo dall'intero ordine"
+msgstr ""
+
+#: wayt-recesso-online.php:839
+msgid "Recedo solo da alcuni articoli:"
+msgstr ""
+
+#: wayt-recesso-online.php:247
+msgid "Recesso dal contratto"
+msgstr ""
+
+#: wayt-recesso-online.php:2245
+msgid "Recesso esercitato (art. 54-bis Cod. Consumo)"
+msgstr ""
+
+#: wayt-recesso-online.php:1103
+msgid "Recesso esercitato dal cliente tramite funzione online (art. 54-bis). Oggetto: %1$s. Trasmesso il %2$s."
+msgstr ""
+
+#: wayt-recesso-online.php:1369
+#: wayt-recesso-online.php:1370
+msgid "Recesso Online"
+msgstr ""
+
+#: wayt-recesso-online.php:1457
+msgid "Recesso Online (art. 54-bis)"
+msgstr ""
+
+#: wayt-recesso-online.php:2124
+msgid "Recesso parziale"
+msgstr ""
+
+#: wayt-recesso-online.php:923
+msgid "Recesso parziale:"
+msgstr ""
+
+#: wayt-recesso-online.php:1165
+msgid "Recesso registrato"
+msgstr ""
+
+#: wayt-recesso-online.php:315
+#: wayt-recesso-online.php:342
+#: wayt-recesso-online.php:347
+msgctxt "Order status"
+msgid "Recesso richiesto"
+msgstr ""
+
+#: wayt-recesso-online.php:1561
+msgid "Recesso richiesto (custom)"
+msgstr ""
+
+#: wayt-recesso-online.php:322
+msgid "Recesso richiesto <span class=\"count\">(%s)</span>"
+msgid_plural "Recesso richiesto <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: wayt-recesso-online.php:2124
+msgid "Recesso totale"
+msgstr ""
+
+#: wayt-recesso-online.php:1651
+msgid "Reply-To avviso"
+msgstr ""
+
+#: wayt-recesso-online.php:827
+msgid "Riceverai a questo indirizzo l'avviso di ricevimento su supporto durevole."
+msgstr ""
+
+#: wayt-recesso-online.php:2194
+msgid "Richiesta non trovata."
+msgstr ""
+
+#: wayt-recesso-online.php:1460
+msgid "Richieste"
+msgstr ""
+
+#: wayt-recesso-online.php:1612
+msgid "Rimborso automatico"
+msgstr ""
+
+#: wayt-recesso-online.php:1126
+msgid "Rimborso automatico creato in seguito al recesso (rimborso #%d)."
+msgstr ""
+
+#: wayt-recesso-online.php:592
+msgid "Scarica il modulo tipo di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1745
+msgid "Scarica PDF"
+msgstr ""
+
+#: wayt-recesso-online.php:1676
+msgid "Sconsigliato: il registro dei recessi è una prova di conformità. Se lasciato deselezionato, alla disinstallazione vengono rimosse solo le impostazioni, mentre lo storico resta nel database."
+msgstr ""
+
+#: wayt-recesso-online.php:1626
+msgid "Se compilato, il campo motivo diventa un menu a tendina (con opzione «Altro»). Lasciato vuoto, resta un campo di testo libero. Il motivo è sempre facoltativo."
+msgstr ""
+
+#: wayt-recesso-online.php:1739
+msgid "Segna gestito"
+msgstr ""
+
+#: wayt-recesso-online.php:1030
+#: wayt-recesso-online.php:699
+#: wayt-recesso-online.php:901
+msgid "Sessione scaduta, riprova."
+msgstr ""
+
+#: wayt-recesso-online.php:1828
+msgid "Shortcode disponibili"
+msgstr ""
+
+#: wayt-recesso-online.php:1637
+msgid "Slug categorie escluse"
+msgstr ""
+
+#: wayt-recesso-online.php:1658
+msgid "Sostituisce il paragrafo introduttivo dell'email di avviso. Vuoto = testo predefinito (riferimento all'art. 54-bis). La dichiarazione, la data e l'ora vengono sempre aggiunte automaticamente."
+msgstr ""
+
+#: wayt-recesso-online.php:873
+msgid "Specifica il motivo (solo se hai scelto «Altro»)"
+msgstr ""
+
+#: wayt-recesso-online.php:2046
+msgid "Spunta se il prodotto rientra nelle eccezioni al diritto di recesso (art. 59): beni su misura, sigillati aperti, deperibili, ecc."
+msgstr ""
+
+#: wayt-recesso-online.php:1520
+msgid "Stati ordine eleggibili"
+msgstr ""
+
+#: wayt-recesso-online.php:1716
+msgid "Stato"
+msgstr ""
+
+#: wayt-recesso-online.php:1558
+msgid "Stato dopo il recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1580
+msgid "Testo informativa precontrattuale"
+msgstr ""
+
+#: wayt-recesso-online.php:1655
+msgid "Testo introduttivo avviso"
+msgstr ""
+
+#: wayt-recesso-online.php:1576
+msgid "Titolo email cliente"
+msgstr ""
+
+#: wayt-recesso-online.php:1207
+msgid "Trasmesso il: %s"
+msgstr ""
+
+#: wayt-recesso-online.php:1625
+msgid "Una motivazione per riga…"
+msgstr ""
+
+#: wayt-recesso-online.php:1584
+msgid "URL modulo tipo di recesso"
+msgstr ""
+
+#: wayt-recesso-online.php:1581
+msgid "Usa lo shortcode [wayt_recesso_info] dove serve."
+msgstr ""
+
+#: wayt-recesso-online.php:1663
+msgid "Usato per il pulsante di conferma e i dettagli del form."
+msgstr ""
+
+#: wayt-recesso-online.php:589
+msgid "Vai alla funzione di recesso online"
+msgstr ""
+
+#: wayt-recesso-online.php:1820
+msgid "Verifica rapida dei requisiti tecnici dell'art. 54-bis. Questo non sostituisce la consulenza legale sulle condizioni generali di vendita."
+msgstr ""
+
+#: wayt-recesso-online.php:1647
+msgid "Vuoto = usa il mittente predefinito di WooCommerce."
+msgstr ""
+
+#: wayt-recesso-online.php:282
+msgid "WAYT Recesso Online richiede WooCommerce attivo."
+msgstr ""
+
+#: wayt-recesso-online.php:625
+msgid "WooCommerce non disponibile."
+msgstr ""
+
+#: wayt-recesso-online.php:867
+msgid "— Nessuna indicazione —"
+msgstr ""
+
+#: wayt-recesso-online.php:1596
+msgid "— Seleziona —"
+msgstr ""
