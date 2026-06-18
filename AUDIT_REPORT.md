@@ -24,7 +24,7 @@ I problemi principali sono di **due nature**:
    né `composer run lint` (178 errori / 83 warning) né `composer run analyze`
    (9 errori; per giunta PHPStan va in crash con il `--memory-limit=1G` usato in
    CI). I job CI `coding-standards` e `static-analysis` sono quindi **falliti**,
-   in contrasto con la "Definition of done" dichiarata in `CLAUDE.md`. La gran
+   in contrasto con la "Definition of done" del progetto. La gran
    parte è cosmetica e auto-correggibile (`phpcbf` sistema 196 violazioni su 261,
    in primis le 107 short-array che WordPress vieta).
 2. **Idempotenza del flusso di recesso (P1).** `process_confirm()` non ri-verifica

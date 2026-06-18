@@ -21,6 +21,6 @@ Thumbs.db
 .vscode/
 *.log
 
-# Strumenti locali di sviluppo (non versionati: non devono comparire nel repo pubblico)
-CLAUDE.md
-/.claude/
+# Note e strumenti di sviluppo locali (non versionati)
+/.dev/
+/notes.local.md
