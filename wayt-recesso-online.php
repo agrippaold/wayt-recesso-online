@@ -844,8 +844,8 @@ final class WAYT_Recesso_Online {
 			</p>
 			<p class="form-row">
 				<label for="wayt_confirm_email"><?php echo esc_html__( 'Email per la conferma di recesso', 'wayt-recesso' ); ?> <span class="required">*</span></label>
-				<input type="email" id="wayt_confirm_email" name="wayt_confirm_email" value="<?php echo esc_attr( $email ); ?>" required>
-				<small><?php echo esc_html__( 'Riceverai a questo indirizzo l\'avviso di ricevimento su supporto durevole.', 'wayt-recesso' ); ?></small>
+				<input type="email" id="wayt_confirm_email" name="wayt_confirm_email" value="<?php echo esc_attr( $email ); ?>" readonly required>
+				<small><?php echo esc_html__( 'L\'avviso di ricevimento su supporto durevole sara\' inviato all\'indirizzo email dell\'ordine.', 'wayt-recesso' ); ?></small>
 			</p>
 
 			<?php if ( 'yes' === $this->opt( 'enable_partial', 'yes' ) ) : ?>
@@ -1085,6 +1085,15 @@ final class WAYT_Recesso_Online {
 		if ( '' === $data['name'] || ! is_email( $data['email'] ) ) {
 			wc_print_notice( __( 'Dati incompleti: nome ed email sono obbligatori.', 'wayt-recesso' ), 'error' );
 			return;
+		}
+
+		// Sicurezza/compliance: l'avviso su supporto durevole va sempre all'email
+		// del consumatore registrata sull'ordine, mai a un indirizzo arbitrario
+		// digitato nel form. Evita l'uso dell'endpoint come relay e garantisce il
+		// recapito al cliente (fallback all'email digitata solo se l'ordine non ne ha).
+		$billing_email = (string) $order->get_billing_email();
+		if ( is_email( $billing_email ) ) {
+			$data['email'] = sanitize_email( $billing_email );
 		}
 
 		// Lock per-ordine: serializza richieste concorrenti ed evita il doppio invio
