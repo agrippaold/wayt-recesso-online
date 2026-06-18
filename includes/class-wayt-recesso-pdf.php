@@ -26,12 +26,14 @@ final class WAYT_Recesso_PDF {
 	 */
 	private static function cp1252( string $s ): string {
 		if ( function_exists( 'mb_convert_encoding' ) ) {
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- conversione best-effort: i warning su byte non validi sono gestiti dal fallback.
 			$out = @mb_convert_encoding( $s, 'Windows-1252', 'UTF-8' );
 			if ( false !== $out && '' !== $out ) {
 				return $out;
 			}
 		}
 		if ( function_exists( 'iconv' ) ) {
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- conversione best-effort: i warning su byte non validi sono gestiti dal fallback.
 			$out = @iconv( 'UTF-8', 'Windows-1252//TRANSLIT//IGNORE', $s );
 			if ( false !== $out ) {
 				return $out;
@@ -81,8 +83,8 @@ final class WAYT_Recesso_PDF {
 					if ( '' !== $line ) {
 						$out[] = $line;
 					}
-					// Spezza parole troppo lunghe.
-					while ( strlen( $w ) > $max_chars ) {
+					// Spezza parole troppo lunghe (isset sull'offset = lunghezza > max, senza strlen nel ciclo).
+					while ( isset( $w[ $max_chars ] ) ) {
 						$out[] = substr( $w, 0, $max_chars );
 						$w     = substr( $w, $max_chars );
 					}
@@ -99,13 +101,9 @@ final class WAYT_Recesso_PDF {
 	/**
 	 * Genera il PDF.
 	 *
-	 * @param array $args {
-	 *     @type string                     $title      Titolo.
-	 *     @type array<int,array{0:string,1:string}> $rows  Coppie etichetta/valore.
-	 *     @type string                     $decl_title Titolo della dichiarazione.
-	 *     @type string                     $decl_text  Corpo della dichiarazione.
-	 *     @type string                     $footer     Riga a pie' di pagina.
-	 * }
+	 * @param array $args Argomenti di composizione: 'title' (titolo), 'rows'
+	 *                    (coppie etichetta/valore), 'decl_title', 'decl_text'
+	 *                    (titolo e corpo della dichiarazione), 'footer'.
 	 * @return string Byte del PDF.
 	 */
 	public static function generate( array $args ): string {
@@ -200,7 +198,7 @@ final class WAYT_Recesso_PDF {
 		foreach ( $objs as $o ) {
 			$offsets[] = strlen( $out );
 			$out      .= $i . " 0 obj\n" . $o . "\nendobj\n";
-			$i++;
+			++$i;
 		}
 		$xref_pos = strlen( $out );
 		$n        = count( $objs ) + 1;

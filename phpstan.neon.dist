@@ -8,5 +8,24 @@ parameters:
         - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
     scanFiles:
         - vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+    # Gli stub WP/WC hanno PHPDoc imprecisi: non trattare i loro tipi come certi,
+    # cosi' i controlli difensivi (es. WC()->mailer(), ritorni di wc_create_refund)
+    # non vengono segnalati come codice irraggiungibile.
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # WC_Emails::send() inoltra headers/attachments a wp_mail(), che accetta
+        # anche array; gli stub li tipizzano solo come string.
+        -
+            message: '#Parameter \#[45] \$(headers|attachments) of method WC_Emails::send\(\) expects string#'
+            path: wayt-recesso-online.php
+        # --- Mini-baseline temporanea: voci rimosse dai rispettivi fix dell'audit. ---
+        # Risolto dal fix C2 (wp_insert_post con $wp_error=true in maybe_create_page()).
+        -
+            message: '#is_wp_error\(int<.*>\) will always evaluate to false#'
+            path: wayt-recesso-online.php
+        # Risolto dal fix C3 (instanceof WC_Order_Item_Product in maybe_refund()).
+        -
+            message: '#Call to an undefined method WC_Order_Item::get_total\(\)#'
+            path: wayt-recesso-online.php
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon

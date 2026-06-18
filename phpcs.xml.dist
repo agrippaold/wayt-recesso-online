@@ -16,8 +16,27 @@
 	<arg name="parallel" value="8"/>
 
 	<!-- Standard di base. -->
-	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Extra">
+		<!-- La sintassi short array e' adottata coerentemente in tutto il
+		     plugin (PHP 8.0+): scelta di stile del progetto, non un difetto. -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+	</rule>
 	<rule ref="WordPress-Docs"/>
+
+	<!-- Capability di WooCommerce note al progetto. -->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="manage_woocommerce"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Il file principale e' l'entry-point del plugin (header + classe
+	     bootstrap): non va rinominato in class-*.php. -->
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>wayt-recesso-online.php</exclude-pattern>
+	</rule>
 
 	<!-- Internazionalizzazione: text domain del plugin. -->
 	<rule ref="WordPress.WP.I18n">

@@ -37,7 +37,7 @@ function wayt_recesso_uninstall_site( bool $purge ): void {
 	delete_option( $option_db );
 
 	// 2) Pulizia transient di lock (best-effort; con object cache esterno
-	//    potrebbero non essere in tabella, ma il SQL e' innocuo).
+	// potrebbero non essere in tabella, ma il SQL e' innocuo).
 	$wpdb->query(
 		"DELETE FROM {$wpdb->options}
 		 WHERE option_name LIKE '\_transient\_wayt\_recesso\_lock\_%'
@@ -61,10 +61,8 @@ function wayt_recesso_uninstall_site( bool $purge ): void {
 	$hpos_meta = $wpdb->prefix . 'wc_orders_meta';
 	$exists    = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $hpos_meta ) );
 	if ( $exists === $hpos_meta ) {
-		$wpdb->query(
-			"DELETE FROM {$hpos_meta}
-			 WHERE meta_key IN ( '_wayt_recesso', '_wayt_recesso_date' )"
-		); // phpcs:ignore WordPress.DB.PreparedSQL
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- nome tabella da $wpdb->prefix, nessun input utente; query di disinstallazione.
+		$wpdb->query( "DELETE FROM {$hpos_meta} WHERE meta_key IN ( '_wayt_recesso', '_wayt_recesso_date' )" );
 	}
 
 	// 5) Rimozione meta di esclusione dal recesso sui prodotti.
@@ -83,7 +81,7 @@ function wayt_recesso_uninstall_site( bool $purge ): void {
 					}
 				}
 			}
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir, WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort; la cartella potrebbe non essere vuota.
 			@rmdir( $tmp_dir );
 		}
 	}
@@ -96,22 +94,22 @@ $wayt_recesso_purge = is_array( $wayt_recesso_opts )
 	&& 'yes' === $wayt_recesso_opts['purge_on_uninstall'];
 
 if ( is_multisite() ) {
-	$site_ids = get_sites(
+	$wayt_recesso_site_ids = get_sites(
 		array(
 			'fields' => 'ids',
 			'number' => 0,
 		)
 	);
-	foreach ( $site_ids as $wayt_recesso_site_id ) {
+	foreach ( $wayt_recesso_site_ids as $wayt_recesso_site_id ) {
 		switch_to_blog( (int) $wayt_recesso_site_id );
 
 		// L'opzione e per-sito: rileggi il flag dentro ogni blog.
-		$site_opts  = get_option( 'wayt_recesso_options', array() );
-		$site_purge = is_array( $site_opts )
-			&& isset( $site_opts['purge_on_uninstall'] )
-			&& 'yes' === $site_opts['purge_on_uninstall'];
+		$wayt_recesso_site_opts  = get_option( 'wayt_recesso_options', array() );
+		$wayt_recesso_site_purge = is_array( $wayt_recesso_site_opts )
+			&& isset( $wayt_recesso_site_opts['purge_on_uninstall'] )
+			&& 'yes' === $wayt_recesso_site_opts['purge_on_uninstall'];
 
-		wayt_recesso_uninstall_site( $site_purge );
+		wayt_recesso_uninstall_site( $wayt_recesso_site_purge );
 		restore_current_blog();
 	}
 } else {

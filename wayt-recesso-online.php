@@ -16,6 +16,8 @@
  * WC requires at least: 7.0
  * WC tested up to:      9.9
  *
+ * @package WAYT_Recesso_Online
+ *
  * NOTA LEGALE: questo plugin implementa i requisiti TECNICI dell'art. 54-bis.
  * Le condizioni generali di vendita e l'informativa precontrattuale restano
  * responsabilita' del professionista e del suo consulente legale.
@@ -106,7 +108,7 @@ final class WAYT_Recesso_Online {
 		// Frontend: pulsanti nell'area "Il mio account" + link nelle email.
 		add_filter( 'woocommerce_my_account_my_orders_actions', [ $this, 'my_orders_action' ], 10, 2 );
 		add_action( 'woocommerce_order_details_after_order_table', [ $this, 'order_details_box' ], 20 );
-		add_action( 'woocommerce_email_after_order_table', [ $this, 'email_withdrawal_link' ], 20, 4 );
+		add_action( 'woocommerce_email_after_order_table', [ $this, 'email_withdrawal_link' ], 20, 3 );
 
 		// Info precontrattuale al checkout (opzionale).
 		add_action( 'woocommerce_review_order_before_submit', [ $this, 'checkout_precontractual_notice' ] );
@@ -128,9 +130,9 @@ final class WAYT_Recesso_Online {
 		add_action( 'admin_post_wayt_recesso_pdf', [ $this, 'handle_pdf_download' ] );
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * ATTIVAZIONE / DISATTIVAZIONE
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Attivazione: crea tabella, opzioni di default, pagina recesso.
@@ -200,34 +202,34 @@ final class WAYT_Recesso_Online {
 	 */
 	private static function default_options(): array {
 		return [
-			'withdrawal_days'      => 14,
-			'start_trigger'        => 'date_completed', // date_completed|date_paid|date_created|delivery_meta.
-			'delivery_meta_key'    => '_delivery_date',
-			'eligible_statuses'    => [ 'processing', 'completed' ],
-			'button_label'         => __( 'Recedi dal contratto qui', 'wayt-recesso' ),
-			'confirm_label'        => __( 'Conferma recesso', 'wayt-recesso' ),
-			'merchant_email'       => get_option( 'admin_email' ),
-			'enable_reason'        => 'yes',
-			'enable_partial'       => 'yes',
-			'set_status'           => WAYT_RECESSO_STATUS, // recesso|on-hold|none.
-			'email_subject'        => __( 'Avviso di ricevimento del recesso - Ordine #{order_number}', 'wayt-recesso' ),
-			'email_heading'        => __( 'Abbiamo ricevuto la tua richiesta di recesso', 'wayt-recesso' ),
-			'precontractual_text'  => __( 'Hai diritto di recedere dal contratto entro 14 giorni senza fornire alcuna motivazione. Potrai esercitare il recesso in modo semplice e diretto tramite l\'apposita funzione "Recedi dal contratto qui" disponibile nella tua area ordini e alla pagina dedicata al recesso, oltre che tramite il modulo tipo di recesso.', 'wayt-recesso' ),
-			'modulo_tipo_url'      => '',
-			'recesso_page_id'      => 0,
-			'checkout_notice'      => 'yes',
+			'withdrawal_days'        => 14,
+			'start_trigger'          => 'date_completed', // date_completed|date_paid|date_created|delivery_meta.
+			'delivery_meta_key'      => '_delivery_date',
+			'eligible_statuses'      => [ 'processing', 'completed' ],
+			'button_label'           => __( 'Recedi dal contratto qui', 'wayt-recesso' ),
+			'confirm_label'          => __( 'Conferma recesso', 'wayt-recesso' ),
+			'merchant_email'         => get_option( 'admin_email' ),
+			'enable_reason'          => 'yes',
+			'enable_partial'         => 'yes',
+			'set_status'             => WAYT_RECESSO_STATUS, // recesso|on-hold|none.
+			'email_subject'          => __( 'Avviso di ricevimento del recesso - Ordine #{order_number}', 'wayt-recesso' ),
+			'email_heading'          => __( 'Abbiamo ricevuto la tua richiesta di recesso', 'wayt-recesso' ),
+			'precontractual_text'    => __( 'Hai diritto di recedere dal contratto entro 14 giorni senza fornire alcuna motivazione. Potrai esercitare il recesso in modo semplice e diretto tramite l\'apposita funzione "Recedi dal contratto qui" disponibile nella tua area ordini e alla pagina dedicata al recesso, oltre che tramite il modulo tipo di recesso.', 'wayt-recesso' ),
+			'modulo_tipo_url'        => '',
+			'recesso_page_id'        => 0,
+			'checkout_notice'        => 'yes',
 			'checkout_blocks_notice' => 'yes',
-			'reasons_list'         => '', // una motivazione per riga (vuoto = campo libero).
-			'excluded_products'    => '', // ID prodotto separati da virgola/righe.
-			'excluded_categories'  => '', // slug categoria separati da virgola/righe.
-			'auto_refund'          => 'off', // off|items|full.
-			'pdf_enabled'          => 'yes', // allega PDF attestato all'avviso.
-			'email_from_name'      => '', // mittente avviso (vuoto = default WooCommerce).
-			'email_reply_to'       => '', // reply-to avviso.
-			'email_body'           => '', // testo introduttivo email (vuoto = default).
-			'accent_color'         => '#111111',
-			'custom_css'           => '',
-			'purge_on_uninstall'   => 'no', // 'yes' = elimina tabella audit + meta alla disinstallazione.
+			'reasons_list'           => '', // una motivazione per riga (vuoto = campo libero).
+			'excluded_products'      => '', // ID prodotto separati da virgola/righe.
+			'excluded_categories'    => '', // slug categoria separati da virgola/righe.
+			'auto_refund'            => 'off', // off|items|full.
+			'pdf_enabled'            => 'yes', // allega PDF attestato all'avviso.
+			'email_from_name'        => '', // mittente avviso (vuoto = default WooCommerce).
+			'email_reply_to'         => '', // reply-to avviso.
+			'email_body'             => '', // testo introduttivo email (vuoto = default).
+			'accent_color'           => '#111111',
+			'custom_css'             => '',
+			'purge_on_uninstall'     => 'no', // 'yes' = elimina tabella audit + meta alla disinstallazione.
 		];
 	}
 
@@ -259,9 +261,9 @@ final class WAYT_Recesso_Online {
 		}
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * INFRASTRUTTURA
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Carica il text domain.
@@ -289,21 +291,21 @@ final class WAYT_Recesso_Online {
 	/**
 	 * Restituisce un'opzione.
 	 *
-	 * @param string $key     Chiave.
-	 * @param mixed  $default Valore di fallback.
+	 * @param string $key      Chiave.
+	 * @param mixed  $fallback Valore di fallback.
 	 * @return mixed
 	 */
-	public function opt( string $key, $default = '' ) {
+	public function opt( string $key, $fallback = '' ) {
 		if ( null === $this->opts ) {
 			$stored     = get_option( WAYT_RECESSO_OPTION, [] );
 			$this->opts = wp_parse_args( is_array( $stored ) ? $stored : [], self::default_options() );
 		}
-		return $this->opts[ $key ] ?? $default;
+		return $this->opts[ $key ] ?? $fallback;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * STATO ORDINE CUSTOM
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Registra lo stato post per l'ordine.
@@ -349,9 +351,9 @@ final class WAYT_Recesso_Online {
 		return $new;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * ELEGGIBILITA'
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Calcola la data di scadenza del recesso per un ordine.
@@ -458,14 +460,8 @@ final class WAYT_Recesso_Online {
 	public function already_withdrawn( int $order_id ): bool {
 		global $wpdb;
 		$table = $wpdb->prefix . WAYT_RECESSO_TABLE;
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$count = (int) $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT COUNT(*) FROM {$table} WHERE order_id = %d AND scope = %s",
-				$order_id,
-				'full'
-			)
-		);
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nome tabella da $wpdb->prefix; valori passati via prepare().
+		$count = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE order_id = %d AND scope = %s", $order_id, 'full' ) );
 		return $count > 0;
 	}
 
@@ -490,15 +486,15 @@ final class WAYT_Recesso_Online {
 		);
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * FRONTEND — INGRESSO ALLA FUNZIONE
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Bottone "Recedi" nella lista ordini di "Il mio account".
 	 *
 	 * @param array<string,array<string,string>> $actions Azioni.
-	 * @param WC_Order                            $order   Ordine.
+	 * @param WC_Order                           $order   Ordine.
 	 * @return array<string,array<string,string>>
 	 */
 	public function my_orders_action( array $actions, WC_Order $order ): array {
@@ -547,9 +543,8 @@ final class WAYT_Recesso_Online {
 	 * @param WC_Order $order         Ordine.
 	 * @param bool     $sent_to_admin Inviata all'admin.
 	 * @param bool     $plain_text    Email testuale.
-	 * @param WC_Email $email         Oggetto email.
 	 */
-	public function email_withdrawal_link( $order, $sent_to_admin = false, $plain_text = false, $email = null ): void {
+	public function email_withdrawal_link( $order, $sent_to_admin = false, $plain_text = false ): void {
 		if ( ! $order instanceof WC_Order || $sent_to_admin ) {
 			return;
 		}
@@ -567,9 +562,9 @@ final class WAYT_Recesso_Online {
 		echo '<p style="margin:16px 0;"><a href="' . esc_url( $url ) . '" style="display:inline-block;padding:10px 16px;background:#1f6feb;color:#ffffff;text-decoration:none;border-radius:4px;">' . esc_html( $label ) . '</a></p>';
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * FRONTEND — INFO PRECONTRATTUALE
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Shortcode [wayt_recesso_info]: nota informativa precontrattuale.
@@ -611,9 +606,9 @@ final class WAYT_Recesso_Online {
 		echo '</div>';
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * FRONTEND — FUNZIONE DI RECESSO (FLOW)
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Shortcode [wayt_recesso]: la funzione di recesso (lookup -> dichiarazione -> conferma -> esito).
@@ -628,6 +623,8 @@ final class WAYT_Recesso_Online {
 		ob_start();
 		$this->print_styles_once();
 
+		// Solo routing dello stage: ogni handler verifica il proprio nonce (process_confirm/render_confirm_step/handle_lookup) o l'order_key.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$stage = isset( $_POST['wayt_stage'] ) ? sanitize_key( wp_unslash( $_POST['wayt_stage'] ) ) : '';
 
 		// 1) Conferma definitiva (comando di conferma di legge).
@@ -650,6 +647,7 @@ final class WAYT_Recesso_Online {
 		}
 
 		// 4) Lookup tramite numero ordine + email (ospiti).
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- il nonce e' verificato in handle_lookup().
 		if ( isset( $_POST['wayt_stage'] ) && 'lookup' === sanitize_key( wp_unslash( $_POST['wayt_stage'] ) ) ) {
 			$lookup = $this->handle_lookup();
 			if ( $lookup instanceof WC_Order ) {
@@ -674,8 +672,11 @@ final class WAYT_Recesso_Online {
 	 * @return WC_Order|null
 	 */
 	private function resolve_order_from_request(): ?WC_Order {
+		// L'accesso e' autenticato dall'order_key (hash_equals piu' avanti), non da nonce: pattern WooCommerce per i link in email/account.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		$order_id = isset( $_GET['order'] ) ? absint( wp_unslash( $_GET['order'] ) ) : 0;
 		$key      = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		if ( ! $order_id || '' === $key ) {
 			return null;
 		}
@@ -702,7 +703,7 @@ final class WAYT_Recesso_Online {
 		$number = isset( $_POST['wayt_order_number'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_order_number'] ) ) : '';
 		$email  = isset( $_POST['wayt_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_email'] ) ) : '';
 
-		$number = ltrim( $number, '#' );
+		$number   = ltrim( $number, '#' );
 		$order_id = (int) $number;
 		// Supporta anche numeri ordine custom (sequential order numbers).
 		if ( $order_id <= 0 ) {
@@ -745,7 +746,7 @@ final class WAYT_Recesso_Online {
 	 * Lista ordini eleggibili per l'utente loggato.
 	 */
 	private function render_account_orders_list(): void {
-		$orders = wc_get_orders(
+		$orders   = wc_get_orders(
 			[
 				'customer' => get_current_user_id(),
 				'limit'    => 20,
@@ -884,7 +885,7 @@ final class WAYT_Recesso_Online {
 
 			<?php wp_nonce_field( 'wayt_recesso_declare', 'wayt_declare_nonce' ); ?>
 			<input type="hidden" name="wayt_stage" value="declare">
-			<input type="hidden" name="wayt_order_id" value="<?php echo esc_attr( $order->get_id() ); ?>">
+			<input type="hidden" name="wayt_order_id" value="<?php echo esc_attr( (string) $order->get_id() ); ?>">
 			<input type="hidden" name="wayt_order_key" value="<?php echo esc_attr( $order->get_order_key() ); ?>">
 
 			<p><button type="submit" class="button wayt-recesso-btn"><?php echo esc_html__( 'Prosegui', 'wayt-recesso' ); ?></button></p>
@@ -939,7 +940,7 @@ final class WAYT_Recesso_Online {
 			// Ripropone i dati in hidden.
 			wp_nonce_field( 'wayt_recesso_confirm', 'wayt_confirm_nonce' );
 			echo '<input type="hidden" name="wayt_stage" value="confirm">';
-			echo '<input type="hidden" name="wayt_order_id" value="' . esc_attr( $order->get_id() ) . '">';
+			echo '<input type="hidden" name="wayt_order_id" value="' . esc_attr( (string) $order->get_id() ) . '">';
 			echo '<input type="hidden" name="wayt_order_key" value="' . esc_attr( $order->get_order_key() ) . '">';
 			echo '<input type="hidden" name="wayt_name" value="' . esc_attr( $data['name'] ) . '">';
 			echo '<input type="hidden" name="wayt_confirm_email" value="' . esc_attr( $data['email'] ) . '">';
@@ -966,6 +967,8 @@ final class WAYT_Recesso_Online {
 	 * @return array<string,mixed>
 	 */
 	private function collect_posted_data(): array {
+		// Nonce gia' verificato dai chiamanti (render_confirm_step/process_confirm) prima dell'invocazione; l'order_key viene comunque ricontrollato sotto.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$order_id  = isset( $_POST['wayt_order_id'] ) ? absint( wp_unslash( $_POST['wayt_order_id'] ) ) : 0;
 		$order_key = isset( $_POST['wayt_order_key'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_order_key'] ) ) : '';
 		$order     = $order_id ? wc_get_order( $order_id ) : null;
@@ -975,9 +978,9 @@ final class WAYT_Recesso_Online {
 			$order = null;
 		}
 
-		$name   = isset( $_POST['wayt_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_name'] ) ) : '';
-		$email  = isset( $_POST['wayt_confirm_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_confirm_email'] ) ) : '';
-		$scope  = isset( $_POST['wayt_scope'] ) && 'partial' === $_POST['wayt_scope'] ? 'partial' : 'full';
+		$name  = isset( $_POST['wayt_name'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_name'] ) ) : '';
+		$email = isset( $_POST['wayt_confirm_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_confirm_email'] ) ) : '';
+		$scope = isset( $_POST['wayt_scope'] ) && 'partial' === $_POST['wayt_scope'] ? 'partial' : 'full';
 
 		// Motivo: dropdown configurabile oppure campo libero.
 		$reason_select = isset( $_POST['wayt_reason_select'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_reason_select'] ) ) : '';
@@ -1010,6 +1013,7 @@ final class WAYT_Recesso_Online {
 				$scope = 'full';
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		return [
 			'order'      => $order,
@@ -1149,7 +1153,7 @@ final class WAYT_Recesso_Online {
 		}
 
 		// Notifica merchant.
-		$this->notify_merchant( $order, $data, $declaration, $now_local );
+		$this->notify_merchant( $order, $data, $declaration );
 
 		/**
 		 * Hook estensibilita': recesso confermato.
@@ -1158,6 +1162,7 @@ final class WAYT_Recesso_Online {
 		 * @param WC_Order            $order      Ordine.
 		 * @param array<string,mixed> $data       Dati dichiarazione.
 		 */
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- namespacing intenzionale con "/" per gli hook pubblici del plugin.
 		do_action( 'wayt_recesso/confermato', $request_id, $order, $data );
 
 		// Esito.
@@ -1179,17 +1184,21 @@ final class WAYT_Recesso_Online {
 	/**
 	 * Costruisce il testo della dichiarazione (snapshot per supporto durevole).
 	 *
-	 * @param WC_Order             $order Ordine.
-	 * @param array<string,mixed>  $data  Dati.
-	 * @param DateTimeImmutable    $when  Data/ora.
+	 * @param WC_Order            $order Ordine.
+	 * @param array<string,mixed> $data  Dati.
+	 * @param DateTimeImmutable   $when  Data/ora.
 	 * @return string
 	 */
 	private function build_declaration_text( WC_Order $order, array $data, DateTimeImmutable $when ): string {
 		$lines   = [];
 		$lines[] = __( 'Dichiarazione di recesso (art. 54-bis Codice del Consumo)', 'wayt-recesso' );
+		/* translators: %s: numero ordine. */
 		$lines[] = sprintf( __( 'Ordine: #%s', 'wayt-recesso' ), $order->get_order_number() );
+		/* translators: %s: data dell'ordine. */
 		$lines[] = sprintf( __( 'Data ordine: %s', 'wayt-recesso' ), wc_format_datetime( $order->get_date_created() ) );
+		/* translators: %s: nome del consumatore. */
 		$lines[] = sprintf( __( 'Consumatore: %s', 'wayt-recesso' ), $data['name'] );
+		/* translators: %s: email per la conferma. */
 		$lines[] = sprintf( __( 'Email per la conferma: %s', 'wayt-recesso' ), $data['email'] );
 
 		if ( 'partial' === $data['scope'] && ! empty( $data['item_names'] ) ) {
@@ -1202,16 +1211,18 @@ final class WAYT_Recesso_Online {
 		}
 
 		if ( '' !== $data['reason'] ) {
+			/* translators: %s: motivo (facoltativo) indicato dal consumatore. */
 			$lines[] = sprintf( __( 'Motivo (facoltativo): %s', 'wayt-recesso' ), $data['reason'] );
 		}
+		/* translators: %s: data e ora di trasmissione. */
 		$lines[] = sprintf( __( 'Trasmesso il: %s', 'wayt-recesso' ), $when->format( 'd/m/Y H:i:s' ) );
 
 		return implode( "\n", $lines );
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * EMAIL
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Invia l'avviso di ricevimento su supporto durevole al consumatore.
@@ -1220,6 +1231,7 @@ final class WAYT_Recesso_Online {
 	 * @param array<string,mixed> $data        Dati.
 	 * @param string              $declaration Testo dichiarazione.
 	 * @param DateTimeImmutable   $when        Data/ora.
+	 * @param array               $attachments Allegati (percorsi file) all'avviso.
 	 * @return bool
 	 */
 	private function send_acknowledgement( WC_Order $order, array $data, string $declaration, DateTimeImmutable $when, array $attachments = [] ): bool {
@@ -1261,6 +1273,7 @@ final class WAYT_Recesso_Online {
 		 * @param WC_Order            $order       Ordine.
 		 * @param array<string,mixed> $data        Dati.
 		 */
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- namespacing intenzionale con "/" per gli hook pubblici del plugin.
 		$attachments = apply_filters( 'wayt_recesso/attachments', $attachments, $order, $data );
 		$attachments = array_values( array_filter( (array) $attachments ) );
 
@@ -1279,9 +1292,8 @@ final class WAYT_Recesso_Online {
 	 * @param WC_Order            $order       Ordine.
 	 * @param array<string,mixed> $data        Dati.
 	 * @param string              $declaration Dichiarazione.
-	 * @param DateTimeImmutable   $when        Data/ora.
 	 */
-	private function notify_merchant( WC_Order $order, array $data, string $declaration, DateTimeImmutable $when ): void {
+	private function notify_merchant( WC_Order $order, array $data, string $declaration ): void {
 		$to = (string) $this->opt( 'merchant_email', get_option( 'admin_email' ) );
 		if ( ! is_email( $to ) ) {
 			return;
@@ -1298,9 +1310,9 @@ final class WAYT_Recesso_Online {
 		wp_mail( $to, $subject, $body, [ 'Content-Type: text/html; charset=UTF-8' ] );
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * UTILITY
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * IP del client (best-effort, per audit).
@@ -1340,13 +1352,14 @@ final class WAYT_Recesso_Online {
 		</style>';
 
 		if ( '' !== trim( $custom ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS depurato da sanitize_css() (rimuove < > e i tag style); impostato solo da admin con manage_woocommerce.
 			echo '<style>' . $this->sanitize_css( $custom ) . '</style>';
 		}
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * ADMIN
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Link rapidi nella lista plugin.
@@ -1401,33 +1414,33 @@ final class WAYT_Recesso_Online {
 			return $out;
 		}
 
-		$out['withdrawal_days']     = isset( $input['withdrawal_days'] ) ? max( 1, absint( $input['withdrawal_days'] ) ) : 14;
-		$out['start_trigger']       = in_array( $input['start_trigger'] ?? '', [ 'date_completed', 'date_paid', 'date_created', 'delivery_meta' ], true ) ? $input['start_trigger'] : 'date_completed';
-		$out['delivery_meta_key']   = isset( $input['delivery_meta_key'] ) ? sanitize_text_field( $input['delivery_meta_key'] ) : '_delivery_date';
-		$out['button_label']        = isset( $input['button_label'] ) ? sanitize_text_field( $input['button_label'] ) : $out['button_label'];
-		$out['confirm_label']       = isset( $input['confirm_label'] ) ? sanitize_text_field( $input['confirm_label'] ) : $out['confirm_label'];
-		$out['merchant_email']      = isset( $input['merchant_email'] ) && is_email( $input['merchant_email'] ) ? sanitize_email( $input['merchant_email'] ) : get_option( 'admin_email' );
-		$out['enable_reason']       = ( isset( $input['enable_reason'] ) && 'yes' === $input['enable_reason'] ) ? 'yes' : 'no';
-		$out['enable_partial']      = ( isset( $input['enable_partial'] ) && 'yes' === $input['enable_partial'] ) ? 'yes' : 'no';
-		$out['checkout_notice']     = ( isset( $input['checkout_notice'] ) && 'yes' === $input['checkout_notice'] ) ? 'yes' : 'no';
+		$out['withdrawal_days']        = isset( $input['withdrawal_days'] ) ? max( 1, absint( $input['withdrawal_days'] ) ) : 14;
+		$out['start_trigger']          = in_array( $input['start_trigger'] ?? '', [ 'date_completed', 'date_paid', 'date_created', 'delivery_meta' ], true ) ? $input['start_trigger'] : 'date_completed';
+		$out['delivery_meta_key']      = isset( $input['delivery_meta_key'] ) ? sanitize_text_field( $input['delivery_meta_key'] ) : '_delivery_date';
+		$out['button_label']           = isset( $input['button_label'] ) ? sanitize_text_field( $input['button_label'] ) : $out['button_label'];
+		$out['confirm_label']          = isset( $input['confirm_label'] ) ? sanitize_text_field( $input['confirm_label'] ) : $out['confirm_label'];
+		$out['merchant_email']         = isset( $input['merchant_email'] ) && is_email( $input['merchant_email'] ) ? sanitize_email( $input['merchant_email'] ) : get_option( 'admin_email' );
+		$out['enable_reason']          = ( isset( $input['enable_reason'] ) && 'yes' === $input['enable_reason'] ) ? 'yes' : 'no';
+		$out['enable_partial']         = ( isset( $input['enable_partial'] ) && 'yes' === $input['enable_partial'] ) ? 'yes' : 'no';
+		$out['checkout_notice']        = ( isset( $input['checkout_notice'] ) && 'yes' === $input['checkout_notice'] ) ? 'yes' : 'no';
 		$out['checkout_blocks_notice'] = ( isset( $input['checkout_blocks_notice'] ) && 'yes' === $input['checkout_blocks_notice'] ) ? 'yes' : 'no';
-		$out['pdf_enabled']         = ( isset( $input['pdf_enabled'] ) && 'yes' === $input['pdf_enabled'] ) ? 'yes' : 'no';
-		$out['auto_refund']         = in_array( $input['auto_refund'] ?? '', [ 'off', 'items', 'full' ], true ) ? $input['auto_refund'] : 'off';
-		$out['reasons_list']        = isset( $input['reasons_list'] ) ? sanitize_textarea_field( $input['reasons_list'] ) : '';
-		$out['excluded_products']   = isset( $input['excluded_products'] ) ? sanitize_textarea_field( $input['excluded_products'] ) : '';
-		$out['excluded_categories'] = isset( $input['excluded_categories'] ) ? sanitize_textarea_field( $input['excluded_categories'] ) : '';
-		$out['email_from_name']     = isset( $input['email_from_name'] ) ? sanitize_text_field( $input['email_from_name'] ) : '';
-		$out['email_reply_to']      = ( isset( $input['email_reply_to'] ) && is_email( $input['email_reply_to'] ) ) ? sanitize_email( $input['email_reply_to'] ) : '';
-		$out['email_body']          = isset( $input['email_body'] ) ? sanitize_textarea_field( $input['email_body'] ) : '';
-		$out['accent_color']        = ( isset( $input['accent_color'] ) && preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $input['accent_color'] ) ) ? $input['accent_color'] : '#111111';
-		$out['custom_css']          = isset( $input['custom_css'] ) ? $this->sanitize_css( (string) $input['custom_css'] ) : '';
-		$out['purge_on_uninstall']  = ( isset( $input['purge_on_uninstall'] ) && 'yes' === $input['purge_on_uninstall'] ) ? 'yes' : 'no';
-		$out['set_status']          = in_array( $input['set_status'] ?? '', [ WAYT_RECESSO_STATUS, 'on-hold', 'none' ], true ) ? $input['set_status'] : WAYT_RECESSO_STATUS;
-		$out['email_subject']       = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : $out['email_subject'];
-		$out['email_heading']       = isset( $input['email_heading'] ) ? sanitize_text_field( $input['email_heading'] ) : $out['email_heading'];
-		$out['precontractual_text'] = isset( $input['precontractual_text'] ) ? sanitize_textarea_field( $input['precontractual_text'] ) : $out['precontractual_text'];
-		$out['modulo_tipo_url']     = isset( $input['modulo_tipo_url'] ) ? esc_url_raw( $input['modulo_tipo_url'] ) : '';
-		$out['recesso_page_id']     = isset( $input['recesso_page_id'] ) ? absint( $input['recesso_page_id'] ) : (int) ( $existing['recesso_page_id'] ?? 0 );
+		$out['pdf_enabled']            = ( isset( $input['pdf_enabled'] ) && 'yes' === $input['pdf_enabled'] ) ? 'yes' : 'no';
+		$out['auto_refund']            = in_array( $input['auto_refund'] ?? '', [ 'off', 'items', 'full' ], true ) ? $input['auto_refund'] : 'off';
+		$out['reasons_list']           = isset( $input['reasons_list'] ) ? sanitize_textarea_field( $input['reasons_list'] ) : '';
+		$out['excluded_products']      = isset( $input['excluded_products'] ) ? sanitize_textarea_field( $input['excluded_products'] ) : '';
+		$out['excluded_categories']    = isset( $input['excluded_categories'] ) ? sanitize_textarea_field( $input['excluded_categories'] ) : '';
+		$out['email_from_name']        = isset( $input['email_from_name'] ) ? sanitize_text_field( $input['email_from_name'] ) : '';
+		$out['email_reply_to']         = ( isset( $input['email_reply_to'] ) && is_email( $input['email_reply_to'] ) ) ? sanitize_email( $input['email_reply_to'] ) : '';
+		$out['email_body']             = isset( $input['email_body'] ) ? sanitize_textarea_field( $input['email_body'] ) : '';
+		$out['accent_color']           = ( isset( $input['accent_color'] ) && preg_match( '/^#[0-9a-fA-F]{6}$/', (string) $input['accent_color'] ) ) ? $input['accent_color'] : '#111111';
+		$out['custom_css']             = isset( $input['custom_css'] ) ? $this->sanitize_css( (string) $input['custom_css'] ) : '';
+		$out['purge_on_uninstall']     = ( isset( $input['purge_on_uninstall'] ) && 'yes' === $input['purge_on_uninstall'] ) ? 'yes' : 'no';
+		$out['set_status']             = in_array( $input['set_status'] ?? '', [ WAYT_RECESSO_STATUS, 'on-hold', 'none' ], true ) ? $input['set_status'] : WAYT_RECESSO_STATUS;
+		$out['email_subject']          = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : $out['email_subject'];
+		$out['email_heading']          = isset( $input['email_heading'] ) ? sanitize_text_field( $input['email_heading'] ) : $out['email_heading'];
+		$out['precontractual_text']    = isset( $input['precontractual_text'] ) ? sanitize_textarea_field( $input['precontractual_text'] ) : $out['precontractual_text'];
+		$out['modulo_tipo_url']        = isset( $input['modulo_tipo_url'] ) ? esc_url_raw( $input['modulo_tipo_url'] ) : '';
+		$out['recesso_page_id']        = isset( $input['recesso_page_id'] ) ? absint( $input['recesso_page_id'] ) : (int) ( $existing['recesso_page_id'] ?? 0 );
 
 		$statuses = [];
 		if ( isset( $input['eligible_statuses'] ) && is_array( $input['eligible_statuses'] ) ) {
@@ -1453,6 +1466,7 @@ final class WAYT_Recesso_Online {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
 		}
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- sola selezione di tab in lettura; pagina protetta da manage_woocommerce.
 		$tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'requests';
 		echo '<div class="wrap"><h1>' . esc_html__( 'Recesso Online (art. 54-bis)', 'wayt-recesso' ) . '</h1>';
 
@@ -1588,6 +1602,8 @@ final class WAYT_Recesso_Online {
 					<th><label for="recesso_page_id"><?php esc_html_e( 'Pagina funzione di recesso', 'wayt-recesso' ); ?></label></th>
 					<td>
 						<?php
+						// wp_dropdown_pages() effettua internamente l'escape del markup generato.
+						// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 						wp_dropdown_pages(
 							[
 								'name'             => WAYT_RECESSO_OPTION . '[recesso_page_id]',
@@ -1596,6 +1612,7 @@ final class WAYT_Recesso_Online {
 								'show_option_none' => __( '— Seleziona —', 'wayt-recesso' ),
 							]
 						);
+						// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
 						<p class="description"><?php esc_html_e( 'Pagina che contiene lo shortcode [wayt_recesso].', 'wayt-recesso' ); ?></p>
 					</td>
@@ -1689,16 +1706,15 @@ final class WAYT_Recesso_Online {
 		global $wpdb;
 		$table = $wpdb->prefix . WAYT_RECESSO_TABLE;
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- sola paginazione in lettura; pagina protetta da manage_woocommerce.
 		$paged    = isset( $_GET['paged'] ) ? max( 1, absint( wp_unslash( $_GET['paged'] ) ) ) : 1;
 		$per_page = 25;
 		$offset   = ( $paged - 1 ) * $per_page;
 
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nome tabella da $wpdb->prefix; nessun input utente.
 		$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL
-		$rows = $wpdb->get_results(
-			$wpdb->prepare( "SELECT * FROM {$table} ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset )
-		);
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nome tabella da $wpdb->prefix; valori via prepare().
+		$rows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} ORDER BY id DESC LIMIT %d OFFSET %d", $per_page, $offset ) );
 
 		$export_url = wp_nonce_url( admin_url( 'admin-post.php?action=wayt_recesso_export' ), 'wayt_recesso_export' );
 		echo '<p style="margin:1em 0;"><a href="' . esc_url( $export_url ) . '" class="button">' . esc_html__( 'Esporta CSV', 'wayt-recesso' ) . '</a></p>';
@@ -1758,8 +1774,8 @@ final class WAYT_Recesso_Online {
 				printf(
 					'<a href="%1$s" style="margin-right:.4em;%2$s">%3$d</a>',
 					esc_url( $url ),
-					$i === $paged ? 'font-weight:700;text-decoration:underline;' : '',
-					$i
+					esc_attr( $i === $paged ? 'font-weight:700;text-decoration:underline;' : '' ),
+					(int) $i
 				);
 			}
 			echo '</p>';
@@ -1770,8 +1786,8 @@ final class WAYT_Recesso_Online {
 	 * Tab conformita': self-check anti-dark-pattern.
 	 */
 	private function render_compliance_tab(): void {
-		$o     = wp_parse_args( get_option( WAYT_RECESSO_OPTION, [] ), self::default_options() );
-		$pid   = (int) $o['recesso_page_id'];
+		$o       = wp_parse_args( get_option( WAYT_RECESSO_OPTION, [] ), self::default_options() );
+		$pid     = (int) $o['recesso_page_id'];
 		$page_ok = $pid && has_shortcode( (string) get_post_field( 'post_content', $pid ), 'wayt_recesso' );
 
 		$checks = [
@@ -1843,7 +1859,7 @@ final class WAYT_Recesso_Online {
 
 		global $wpdb;
 		$table = $wpdb->prefix . WAYT_RECESSO_TABLE;
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- nome tabella da $wpdb->prefix; nessun input utente.
 		$rows = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY id DESC", ARRAY_A );
 
 		nocache_headers();
@@ -1898,9 +1914,9 @@ final class WAYT_Recesso_Online {
 		exit;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * v0.2.0 — HELPER: ESCLUSIONI, MOTIVI, CSS
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Sanitizza CSS personalizzato (impedisce la chiusura del tag style).
@@ -2030,9 +2046,9 @@ final class WAYT_Recesso_Online {
 		return true;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * v0.2.0 — PRODOTTO: CHECKBOX "ESCLUSO DAL RECESSO"
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Aggiunge la checkbox nella scheda prodotto (tab Generale).
@@ -2061,9 +2077,9 @@ final class WAYT_Recesso_Online {
 		update_post_meta( (int) $post_id, '_wayt_recesso_excluded', $val );
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * v0.2.0 — CHECKOUT A BLOCCHI: NOTA PRECONTRATTUALE (lato server)
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Inietta la nota precontrattuale nel checkout a blocchi.
@@ -2095,17 +2111,17 @@ final class WAYT_Recesso_Online {
 		return $notice . (string) $content;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * v0.2.0 — PDF ATTESTATO
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Compone gli argomenti per il PDF attestato.
 	 *
-	 * @param string           $order_number Numero ordine.
-	 * @param string           $order_date   Data ordine (gia' formattata) o ''.
-	 * @param array            $data         Dati dichiarazione (name,email,scope).
-	 * @param string           $declaration  Testo della dichiarazione.
+	 * @param string            $order_number Numero ordine.
+	 * @param string            $order_date   Data ordine (gia' formattata) o ''.
+	 * @param array             $data         Dati dichiarazione (name,email,scope).
+	 * @param string            $declaration  Testo della dichiarazione.
 	 * @param DateTimeImmutable $when         Data/ora trasmissione.
 	 * @return array
 	 */
@@ -2140,9 +2156,9 @@ final class WAYT_Recesso_Online {
 	/**
 	 * Genera il PDF su file temporaneo e ne ritorna il percorso (o '').
 	 *
-	 * @param WC_Order         $order       Ordine.
-	 * @param array            $data        Dati.
-	 * @param string           $declaration Dichiarazione.
+	 * @param WC_Order          $order       Ordine.
+	 * @param array             $data        Dati.
+	 * @param string            $declaration Dichiarazione.
 	 * @param DateTimeImmutable $when        Data/ora.
 	 * @return string
 	 */
@@ -2224,9 +2240,9 @@ final class WAYT_Recesso_Online {
 		exit;
 	}
 
-	/* ---------------------------------------------------------------------
+	/*
 	 * v0.2.0 — RIMBORSO AUTOMATICO (opt-in)
-	 * ------------------------------------------------------------------- */
+	 */
 
 	/**
 	 * Crea un rimborso WooCommerce in base all'impostazione auto_refund.
@@ -2269,7 +2285,7 @@ final class WAYT_Recesso_Online {
 						'refund_total' => $total,
 						'refund_tax'   => $refund_tax,
 					];
-					$amount += $total + $tax_total;
+					$amount                  += $total + $tax_total;
 				}
 				if ( $amount <= 0 ) {
 					return null;
