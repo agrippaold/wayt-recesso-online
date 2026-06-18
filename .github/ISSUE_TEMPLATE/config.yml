@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Sicurezza (segnalazione privata)
+    url: https://github.com/agrippaold/wayt-recesso-online/security/policy
+    about: Per le vulnerabilità non aprire una issue pubblica, segui la security policy.

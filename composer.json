@@ -1,0 +1,38 @@
+{
+    "name": "wayt/wayt-recesso-online",
+    "description": "Pulsante di recesso per WooCommerce conforme all'art. 54-bis del Codice del Consumo (Direttiva UE 2023/2673).",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://wayt.it",
+    "authors": [
+        {
+            "name": "WAYT",
+            "homepage": "https://wayt.it",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/agrippaold/wayt-recesso-online/issues",
+        "source": "https://github.com/agrippaold/wayt-recesso-online"
+    },
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "szepeviktor/phpstan-wordpress": "^1.3",
+        "php-stubs/woocommerce-stubs": "^9.0"
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "fix": "phpcbf",
+        "analyze": "phpstan analyse --memory-limit=1G"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

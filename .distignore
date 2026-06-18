@@ -1,0 +1,17 @@
+# File esclusi dallo ZIP distribuibile (build di release)
+/.git
+/.github
+/.gitignore
+/.distignore
+/.editorconfig
+/composer.json
+/composer.lock
+/phpcs.xml.dist
+/phpstan.neon.dist
+/CONTRIBUTING.md
+/SECURITY.md
+/CLAUDE.md
+/vendor
+/node_modules
+/build
+/dist

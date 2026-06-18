@@ -1,0 +1,26 @@
+# Dipendenze
+/vendor/
+/node_modules/
+
+# Artefatti di build
+/build/
+/dist/
+*.zip
+
+# Strumenti e cache
+.phpunit.result.cache
+.phpcs.cache
+/.phpcs-cache/
+phpstan.neon
+phpcs.xml
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Strumenti locali di sviluppo (non versionati: non devono comparire nel repo pubblico)
+CLAUDE.md
+/.claude/

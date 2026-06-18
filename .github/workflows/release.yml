@@ -1,0 +1,34 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & attach plugin zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build distributable zip
+        run: |
+          SLUG=wayt-recesso-online
+          mkdir -p build/$SLUG
+          # Copia i file del plugin escludendo quelli di sviluppo (.distignore).
+          rsync -a --exclude-from=.distignore \
+            --exclude='.git' --exclude='build' \
+            ./ build/$SLUG/
+          cd build
+          zip -r -X "$SLUG.zip" "$SLUG" >/dev/null
+          echo "Creato build/$SLUG.zip"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/wayt-recesso-online.zip
+          generate_release_notes: true
