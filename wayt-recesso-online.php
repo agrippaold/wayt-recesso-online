@@ -2190,6 +2190,27 @@ final class WAYT_Recesso_Online {
 	}
 
 	/**
+	 * Protegge la cartella temporanea negli uploads da accesso diretto e
+	 * directory listing (index.html vuoto + .htaccess Apache). Best-effort e
+	 * idempotente; su Nginx la protezione va prevista a livello di server.
+	 *
+	 * @param string $dir Cartella da proteggere.
+	 * @return void
+	 */
+	private function protect_dir( string $dir ): void {
+		$dir = trailingslashit( $dir );
+		if ( ! file_exists( $dir . 'index.html' ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			file_put_contents( $dir . 'index.html', '' );
+		}
+		if ( ! file_exists( $dir . '.htaccess' ) ) {
+			$rules = "Require all denied\n<IfModule !mod_authz_core.c>\nOrder allow,deny\nDeny from all\n</IfModule>\n";
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+			file_put_contents( $dir . '.htaccess', $rules );
+		}
+	}
+
+	/**
 	 * Genera il PDF su file temporaneo e ne ritorna il percorso (o '').
 	 *
 	 * @param WC_Order          $order       Ordine.
@@ -2218,6 +2239,7 @@ final class WAYT_Recesso_Online {
 			}
 			$dir = trailingslashit( $upload['basedir'] ) . 'wayt-recesso-tmp';
 			wp_mkdir_p( $dir );
+			$this->protect_dir( $dir );
 
 			$file = trailingslashit( $dir ) . 'attestato-recesso-' . $order->get_id() . '-' . wp_generate_password( 8, false ) . '.pdf';
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
