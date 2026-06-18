@@ -720,6 +720,16 @@ final class WAYT_Recesso_Online {
 			wc_print_notice( __( 'Sessione scaduta, riprova.', 'wayt-recesso' ), 'error' );
 			return null;
 		}
+
+		// Throttling anti-enumerazione: limita i tentativi di ricerca per IP.
+		$throttle_key = 'wayt_recesso_lookup_' . md5( $this->get_ip() );
+		$attempts     = (int) get_transient( $throttle_key );
+		if ( $attempts >= 8 ) {
+			wc_print_notice( __( 'Troppi tentativi di ricerca. Riprova tra qualche minuto.', 'wayt-recesso' ), 'error' );
+			return null;
+		}
+		set_transient( $throttle_key, $attempts + 1, 15 * MINUTE_IN_SECONDS );
+
 		$number = isset( $_POST['wayt_order_number'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_order_number'] ) ) : '';
 		$email  = isset( $_POST['wayt_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_email'] ) ) : '';
 
