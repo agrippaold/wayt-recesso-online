@@ -759,11 +759,11 @@ final class WAYT_Recesso_Online {
 			<p><?php echo esc_html__( 'Inserisci il numero del tuo ordine e l\'email utilizzata per l\'acquisto.', 'wayt-recesso' ); ?></p>
 			<p class="form-row">
 				<label for="wayt_order_number"><?php echo esc_html__( 'Numero ordine', 'wayt-recesso' ); ?> <span class="required">*</span></label>
-				<input type="text" id="wayt_order_number" name="wayt_order_number" required>
+				<input type="text" id="wayt_order_number" name="wayt_order_number" aria-required="true" required>
 			</p>
 			<p class="form-row">
 				<label for="wayt_email"><?php echo esc_html__( 'Email', 'wayt-recesso' ); ?> <span class="required">*</span></label>
-				<input type="email" id="wayt_email" name="wayt_email" required>
+				<input type="email" id="wayt_email" name="wayt_email" aria-required="true" required>
 			</p>
 			<?php wp_nonce_field( 'wayt_recesso_lookup', 'wayt_lookup_nonce' ); ?>
 			<input type="hidden" name="wayt_stage" value="lookup">
@@ -850,11 +850,11 @@ final class WAYT_Recesso_Online {
 
 			<p class="form-row">
 				<label for="wayt_name"><?php echo esc_html__( 'Nome e cognome', 'wayt-recesso' ); ?> <span class="required">*</span></label>
-				<input type="text" id="wayt_name" name="wayt_name" value="<?php echo esc_attr( $name ); ?>" required>
+				<input type="text" id="wayt_name" name="wayt_name" value="<?php echo esc_attr( $name ); ?>" aria-required="true" required>
 			</p>
 			<p class="form-row">
 				<label for="wayt_confirm_email"><?php echo esc_html__( 'Email per la conferma di recesso', 'wayt-recesso' ); ?> <span class="required">*</span></label>
-				<input type="email" id="wayt_confirm_email" name="wayt_confirm_email" value="<?php echo esc_attr( $email ); ?>" readonly required>
+				<input type="email" id="wayt_confirm_email" name="wayt_confirm_email" value="<?php echo esc_attr( $email ); ?>" aria-required="true" readonly required>
 				<small><?php echo esc_html__( 'L\'avviso di ricevimento su supporto durevole sara\' inviato all\'indirizzo email dell\'ordine.', 'wayt-recesso' ); ?></small>
 			</p>
 
@@ -1409,7 +1409,12 @@ final class WAYT_Recesso_Online {
 		if ( ! preg_match( '/^#[0-9a-fA-F]{6}$/', $accent ) ) {
 			$accent = '#111111';
 		}
-		$custom = (string) $this->opt( 'custom_css', '' );
+		// Contrasto (WCAG): testo scuro su accent chiaro, testo chiaro su accent scuro.
+		$r           = (int) hexdec( substr( $accent, 1, 2 ) );
+		$g           = (int) hexdec( substr( $accent, 3, 2 ) );
+		$b           = (int) hexdec( substr( $accent, 5, 2 ) );
+		$accent_text = ( ( $r * 0.299 + $g * 0.587 + $b * 0.114 ) > 150 ) ? '#111111' : '#ffffff';
+		$custom      = (string) $this->opt( 'custom_css', '' );
 
 		echo '<style>
 		.wayt-recesso-form{--wayt-accent:' . esc_html( $accent ) . ';max-width:600px}
@@ -1418,7 +1423,7 @@ final class WAYT_Recesso_Online {
 		.wayt-recesso-form input[type=text],.wayt-recesso-form input[type=email],.wayt-recesso-form textarea,.wayt-recesso-form select{padding:.55em;border:1px solid #ccc;border-radius:5px;width:100%}
 		.wayt-recesso-form small{color:#666;font-size:.85em;margin-top:.25em}
 		.wayt-recesso-btn,.wayt-recesso-confirm-btn{cursor:pointer}
-		.wayt-recesso-confirm-btn{background:var(--wayt-accent)!important;border-color:var(--wayt-accent)!important;color:#fff!important}
+		.wayt-recesso-confirm-btn{background:var(--wayt-accent)!important;border-color:var(--wayt-accent)!important;color:' . esc_html( $accent_text ) . '!important}
 		.wayt-recesso-info{border-left:4px solid ' . esc_html( $accent ) . ';padding:.5em 1em;background:#fafafa;margin:1em 0}
 		</style>';
 
