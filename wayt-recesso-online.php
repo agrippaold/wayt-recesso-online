@@ -1867,6 +1867,21 @@ final class WAYT_Recesso_Online {
 	}
 
 	/**
+	 * Neutralizza l'iniezione di formule nei CSV (Excel/Sheets/LibreOffice):
+	 * premette un apice ai valori che iniziano con un carattere "attivo".
+	 *
+	 * @param mixed $value Valore di cella.
+	 * @return string
+	 */
+	private function csv_safe( $value ): string {
+		$value = (string) $value;
+		if ( '' !== $value && in_array( $value[0], [ '=', '+', '-', '@', "\t", "\r" ], true ) ) {
+			$value = "'" . $value;
+		}
+		return $value;
+	}
+
+	/**
 	 * Export CSV delle richieste.
 	 */
 	public function handle_export_csv(): void {
@@ -1890,19 +1905,22 @@ final class WAYT_Recesso_Online {
 			foreach ( $rows as $r ) {
 				fputcsv(
 					$out,
-					[
-						$r['id'],
-						$r['created_at'],
-						$r['order_number'],
-						$r['consumer_name'],
-						$r['consumer_email'],
-						$r['scope'],
-						$r['items'],
-						$r['reason'],
-						$r['status'],
-						$r['ip'],
-						$r['ack_sent_at'],
-					]
+					array_map(
+						[ $this, 'csv_safe' ],
+						[
+							$r['id'],
+							$r['created_at'],
+							$r['order_number'],
+							$r['consumer_name'],
+							$r['consumer_email'],
+							$r['scope'],
+							$r['items'],
+							$r['reason'],
+							$r['status'],
+							$r['ip'],
+							$r['ack_sent_at'],
+						]
+					)
 				);
 			}
 		}
