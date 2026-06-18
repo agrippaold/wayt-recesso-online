@@ -1012,11 +1012,15 @@ final class WAYT_Recesso_Online {
 		$email = isset( $_POST['wayt_confirm_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_confirm_email'] ) ) : '';
 		$scope = isset( $_POST['wayt_scope'] ) && 'partial' === $_POST['wayt_scope'] ? 'partial' : 'full';
 
-		// Motivo: dropdown configurabile oppure campo libero.
+		// Motivo: dropdown configurabile oppure campo libero. Il valore del menu
+		// e' accettato solo se corrisponde a un motivo realmente configurato
+		// (o a "Altro"); altrimenti si ricade sul testo libero.
 		$reason_select = isset( $_POST['wayt_reason_select'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_reason_select'] ) ) : '';
 		$reason_free   = isset( $_POST['wayt_reason'] ) ? sanitize_textarea_field( wp_unslash( $_POST['wayt_reason'] ) ) : '';
-		if ( '' !== $reason_select ) {
-			$reason = ( '__other__' === $reason_select ) ? $reason_free : $reason_select;
+		if ( '__other__' === $reason_select ) {
+			$reason = $reason_free;
+		} elseif ( '' !== $reason_select && in_array( $reason_select, $this->get_reasons_list(), true ) ) {
+			$reason = $reason_select;
 		} else {
 			$reason = $reason_free;
 		}
@@ -1802,9 +1806,8 @@ final class WAYT_Recesso_Online {
 		echo '</tr></thead><tbody>';
 
 		foreach ( $rows as $r ) {
-			$order_link = $r->order_id ? get_edit_post_link( (int) $r->order_id ) : '';
-			$order_obj  = $r->order_id ? wc_get_order( (int) $r->order_id ) : null;
-			$edit_url   = $order_obj ? $order_obj->get_edit_order_url() : $order_link;
+			$order_obj = $r->order_id ? wc_get_order( (int) $r->order_id ) : null;
+			$edit_url  = $order_obj instanceof WC_Order ? $order_obj->get_edit_order_url() : '';
 
 			echo '<tr>';
 			echo '<td>' . esc_html( mysql2date( 'd/m/Y H:i:s', $r->created_at ) ) . '</td>';
@@ -2187,7 +2190,10 @@ final class WAYT_Recesso_Online {
 	 * @return string
 	 */
 	public function inject_blocks_notice( $content, $block ): string {
-		if ( is_admin() || empty( $block['blockName'] ) ) {
+		// render_block scatta per ogni blocco del sito: una volta iniettata la
+		// nota (o fuori contesto) si esce subito, senza ulteriori controlli.
+		static $done = false;
+		if ( $done || is_admin() || empty( $block['blockName'] ) ) {
 			return (string) $content;
 		}
 		if ( 'woocommerce/checkout-actions-block' !== $block['blockName'] ) {
@@ -2198,10 +2204,6 @@ final class WAYT_Recesso_Online {
 		}
 		$text = trim( (string) $this->opt( 'precontractual_text', '' ) );
 		if ( '' === $text ) {
-			return (string) $content;
-		}
-		static $done = false;
-		if ( $done ) {
 			return (string) $content;
 		}
 		$done   = true;
@@ -2319,7 +2321,7 @@ final class WAYT_Recesso_Online {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_die( esc_html__( 'Permessi insufficienti.', 'wayt-recesso' ) );
 		}
-		$id = isset( $_GET['request'] ) ? absint( $_GET['request'] ) : 0;
+		$id = isset( $_GET['request'] ) ? absint( wp_unslash( $_GET['request'] ) ) : 0;
 		check_admin_referer( 'wayt_recesso_pdf_' . $id );
 
 		global $wpdb;
@@ -2430,7 +2432,9 @@ final class WAYT_Recesso_Online {
 						'amount'         => round( $amount, 2 ),
 						'reason'         => $reason,
 						'line_items'     => $line_items,
-						'restock_items'  => true,
+						// Niente restock automatico: la merce non e' ancora rientrata
+						// alla dichiarazione di recesso (coerente col rimborso totale).
+						'restock_items'  => false,
 						'refund_payment' => false,
 					]
 				);
