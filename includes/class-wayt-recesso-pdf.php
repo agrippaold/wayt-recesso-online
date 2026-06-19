@@ -128,7 +128,16 @@ final class WAYT_Recesso_PDF {
 		$y      -= 28;
 
 		// Righe etichetta/valore.
+		$rows_truncated = false;
 		foreach ( $rows as $row ) {
+			// Guardia di fine pagina (stessa logica del corpo dichiarazione):
+			// il PDF e' a pagina singola, quindi quando lo spazio e' esaurito si
+			// tronca invece di disegnare testo a Y negativa fuori pagina.
+			if ( $y < $margin + 40 ) {
+				$rows_truncated = true;
+				break;
+			}
+
 			$label = isset( $row[0] ) ? (string) $row[0] : '';
 			$value = isset( $row[1] ) ? (string) $row[1] : '';
 
@@ -142,10 +151,21 @@ final class WAYT_Recesso_PDF {
 				$value_wrap = array( '' );
 			}
 			foreach ( $value_wrap as $i => $ln ) {
-				$yy      = $y - ( $i * 14 );
+				$yy = $y - ( $i * 14 );
+				// Anche un singolo valore molto lungo non deve uscire dalla pagina.
+				if ( $yy < $margin + 40 ) {
+					$parts[]        = '(...) Tj';
+					$rows_truncated = true;
+					break;
+				}
 				$parts[] = sprintf( '1 0 0 1 %d %d Tm', $margin + 140, $yy );
 				$parts[] = '(' . self::esc( self::cp1252( $ln ) ) . ') Tj';
 			}
+
+			if ( $rows_truncated ) {
+				break;
+			}
+
 			$y -= ( 14 * max( 1, count( $value_wrap ) ) ) + 6;
 		}
 
