@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'WAYT_RECESSO_VERSION', '0.2.0' );
-define( 'WAYT_RECESSO_DB_VERSION', '1.0.0' );
+define( 'WAYT_RECESSO_DB_VERSION', '1.1.0' );
 define( 'WAYT_RECESSO_FILE', __FILE__ );
 define( 'WAYT_RECESSO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WAYT_RECESSO_URL', plugin_dir_url( __FILE__ ) );
@@ -110,6 +110,9 @@ final class WAYT_Recesso_Online {
 
 		// Verifica WooCommerce attivo.
 		add_action( 'plugins_loaded', [ $this, 'check_dependencies' ], 20 );
+
+		// Migrazione schema su aggiornamento del plugin (idempotente, guardata dalla DB version).
+		add_action( 'plugins_loaded', [ $this, 'maybe_upgrade' ], 21 );
 
 		// Stato ordine custom.
 		add_action( 'init', [ $this, 'register_order_status' ] );
@@ -199,14 +202,29 @@ final class WAYT_Recesso_Online {
 			created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			created_at_gmt DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			ack_sent_at DATETIME NULL,
+			full_order_id BIGINT(20) UNSIGNED NULL DEFAULT NULL,
 			PRIMARY KEY  (id),
 			KEY order_id (order_id),
 			KEY status (status),
-			KEY token (token)
+			KEY token (token),
+			UNIQUE KEY full_order_id (full_order_id)
 		) {$charset_collate};";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
+	}
+
+	/**
+	 * Applica la migrazione dello schema quando il plugin viene aggiornato senza
+	 * passare dall'hook di attivazione. Idempotente: gira solo se la DB version
+	 * memorizzata e' diversa da quella corrente e dbDelta applica solo le differenze.
+	 */
+	public function maybe_upgrade(): void {
+		if ( WAYT_RECESSO_DB_VERSION === get_option( 'wayt_recesso_db_version' ) ) {
+			return;
+		}
+		self::install_table();
+		update_option( 'wayt_recesso_db_version', WAYT_RECESSO_DB_VERSION );
 	}
 
 	/**
@@ -1158,9 +1176,24 @@ final class WAYT_Recesso_Online {
 				'token'          => $token,
 				'created_at'     => $now_local->format( 'Y-m-d H:i:s' ),
 				'created_at_gmt' => $now_gmt->format( 'Y-m-d H:i:s' ),
+				// Backstop anti-doppione a livello DB: valorizzato solo per il recesso
+				// totale (UNIQUE), NULL per i parziali (i NULL non collidono).
+				'full_order_id'  => ( 'full' === $data['scope'] ) ? $order->get_id() : null,
 			],
-			[ '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ]
+			[ '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d' ]
 		);
+
+		// Race persa: il UNIQUE su full_order_id ha rifiutato un secondo recesso
+		// totale per lo stesso ordine (il lock a transient non e' atomico: questo e'
+		// il vero backstop). Si esce con lo stesso avviso del controllo a monte.
+		if ( false === $inserted && 'full' === $data['scope'] ) {
+			$this->withdrawn_cache = [];
+			if ( $this->already_withdrawn( $order->get_id() ) ) {
+				delete_transient( $proc_lock );
+				wc_print_notice( __( 'Per questo ordine risulta gia\' registrato un recesso.', 'wayt-recesso' ), 'notice' );
+				return;
+			}
+		}
 
 		$request_id = $inserted ? (int) $wpdb->insert_id : 0;
 
