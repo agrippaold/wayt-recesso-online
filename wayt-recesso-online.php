@@ -721,15 +721,6 @@ final class WAYT_Recesso_Online {
 			return null;
 		}
 
-		// Throttling anti-enumerazione: limita i tentativi di ricerca per IP.
-		$throttle_key = 'wayt_recesso_lookup_' . md5( $this->get_ip() );
-		$attempts     = (int) get_transient( $throttle_key );
-		if ( $attempts >= 8 ) {
-			wc_print_notice( __( 'Troppi tentativi di ricerca. Riprova tra qualche minuto.', 'wayt-recesso' ), 'error' );
-			return null;
-		}
-		set_transient( $throttle_key, $attempts + 1, 15 * MINUTE_IN_SECONDS );
-
 		$number = isset( $_POST['wayt_order_number'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_order_number'] ) ) : '';
 		$email  = isset( $_POST['wayt_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_email'] ) ) : '';
 
@@ -741,10 +732,34 @@ final class WAYT_Recesso_Online {
 			return null;
 		}
 
+		// Throttling anti-enumerazione legato al BERSAGLIO (numero ordine ed email),
+		// non all'IP: dietro reverse proxy/CDN un limite per IP bloccherebbe tutti gli
+		// ospiti che condividono l'IP del proxy. Si contano i tentativi falliti per
+		// uno stesso ordine (e per una stessa email); un lookup riuscito li azzera,
+		// cosi' il cliente legittimo non viene mai penalizzato.
+		$throttle_keys = array( 'wayt_recesso_lk_o_' . md5( (string) $order_id ) );
+		if ( '' !== $email ) {
+			$throttle_keys[] = 'wayt_recesso_lk_e_' . md5( strtolower( $email ) );
+		}
+		foreach ( $throttle_keys as $tk ) {
+			if ( (int) get_transient( $tk ) >= 10 ) {
+				wc_print_notice( __( 'Troppi tentativi di ricerca. Riprova tra qualche minuto.', 'wayt-recesso' ), 'error' );
+				return null;
+			}
+		}
+		foreach ( $throttle_keys as $tk ) {
+			set_transient( $tk, (int) get_transient( $tk ) + 1, 15 * MINUTE_IN_SECONDS );
+		}
+
 		$order = wc_get_order( $order_id );
 		if ( ! $order instanceof WC_Order || ! is_email( $email ) || strtolower( $order->get_billing_email() ) !== strtolower( $email ) ) {
 			wc_print_notice( __( 'Ordine non trovato o email non corrispondente.', 'wayt-recesso' ), 'error' );
 			return null;
+		}
+
+		// Lookup riuscito: azzera i contatori del bersaglio.
+		foreach ( $throttle_keys as $tk ) {
+			delete_transient( $tk );
 		}
 		return $order;
 	}
