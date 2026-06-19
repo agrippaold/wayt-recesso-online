@@ -2,9 +2,9 @@
 Contributors: wayt
 Tags: woocommerce, withdrawal, gdpr, recesso, eu-directive
 Requires at least: 6.2
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,12 @@ Sì. Sono incluse traduzioni attive per **inglese, tedesco, francese e spagnolo*
 
 == Changelog ==
 
+= 0.2.1 =
+* Correzione: throttle del lookup calcolato per ordine ed email invece che per IP (corretto il comportamento dietro reverse proxy/CDN, dove l'IP è condiviso).
+* Correzione: nessun testo PDF fuori pagina con valori di riga molto lunghi (file non più sovradimensionato).
+* Integrità dati: indice UNIQUE a livello database contro i recessi totali doppi (cambio di schema con migrazione automatica).
+* Compatibilità verificata con WordPress 7.0 e WooCommerce 10.8.
+
 = 0.2.0 =
 * PDF attestato del recesso allegato all'avviso e scaricabile dal registro (generatore interno, senza dipendenze).
 * Esclusioni art. 59 per prodotto, categoria o checkbox di prodotto.
@@ -98,6 +104,9 @@ Sì. Sono incluse traduzioni attive per **inglese, tedesco, francese e spagnolo*
 * Prima release: pulsante di recesso, flusso dichiarazione + conferma, recesso totale/parziale, avviso di ricevimento su supporto durevole, registro + export CSV, stato ordine dedicato, nota precontrattuale al checkout, pannello di conformità, compatibilità HPOS.
 
 == Upgrade Notice ==
+
+= 0.2.1 =
+Release di manutenzione: throttle corretto dietro proxy/CDN, backstop database anti-doppione (cambio di schema, migrazione automatica) e fix del PDF con valori molto lunghi. Aggiornamento consigliato.
 
 = 0.2.0 =
 Aggiunge PDF attestato, esclusioni art. 59, rimborso opzionale, motivi configurabili e supporto al checkout a blocchi. Aggiornamento consigliato.

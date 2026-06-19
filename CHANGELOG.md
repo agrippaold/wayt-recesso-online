@@ -3,6 +3,16 @@
 Tutte le modifiche rilevanti a questo progetto sono documentate qui.
 Il formato segue [Keep a Changelog](https://keepachangelog.com/it/1.0.0/) e il progetto adotta il [Semantic Versioning](https://semver.org/lang/it/).
 
+## [0.2.1] - 2026-06-19
+
+### Corretto
+- Throttle del lookup ospite calcolato per ordine ed email anziché per indirizzo IP: dietro reverse proxy o CDN (dove molti utenti condividono lo stesso IP) non vengono più bloccate richieste legittime di clienti diversi (N1).
+- PDF: i valori di riga molto lunghi non producono più testo fuori dalla pagina né file sovradimensionati; aggiunta la stessa guardia di fine pagina già usata dal corpo della dichiarazione (N2).
+
+### Modificato
+- Aggiunto un backstop anti-doppione a livello di database per il recesso totale: nuova colonna `full_order_id` con indice UNIQUE, rete di sicurezza atomica oltre al lock a transient (race TOCTOU). **Cambio di schema** con migrazione idempotente; DB version 1.0.0 → 1.1.0 (N3).
+- Dichiarata compatibilità con WooCommerce fino alla 10.8 e WordPress fino alla 7.0 (verificato su stack reale).
+
 ## [0.2.0] - 2026-06-18
 
 ### Aggiunto

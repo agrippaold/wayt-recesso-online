@@ -3,7 +3,7 @@
  * Plugin Name:       WAYT Recesso Online (art. 54-bis Cod. Consumo)
  * Plugin URI:        https://wayt.it/
  * Description:       Funzione di recesso digitale conforme all'art. 54-bis del Codice del Consumo (D.Lgs 209/2025, Dir. UE 2023/2673) per WooCommerce: pulsante "Recedi dal contratto qui", dichiarazione + conferma, avviso di ricevimento su supporto durevole, audit log ed export CSV.
- * Version:           0.2.0
+ * Version:           0.2.1
  * Requires at least: 6.2
  * Requires PHP:      8.0
  * Author:            WAYT
@@ -14,7 +14,7 @@
  * Domain Path:       /languages
  *
  * WC requires at least: 7.0
- * WC tested up to:      9.9
+ * WC tested up to:      10.8
  *
  * @package WAYT_Recesso_Online
  *
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WAYT_RECESSO_VERSION', '0.2.0' );
+define( 'WAYT_RECESSO_VERSION', '0.2.1' );
 define( 'WAYT_RECESSO_DB_VERSION', '1.1.0' );
 define( 'WAYT_RECESSO_FILE', __FILE__ );
 define( 'WAYT_RECESSO_PATH', plugin_dir_path( __FILE__ ) );
