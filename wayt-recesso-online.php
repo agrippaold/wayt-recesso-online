@@ -3,7 +3,7 @@
  * Plugin Name:       WAYT Recesso Online (art. 54-bis Cod. Consumo)
  * Plugin URI:        https://wayt.it/
  * Description:       Funzione di recesso digitale conforme all'art. 54-bis del Codice del Consumo (D.Lgs 209/2025, Dir. UE 2023/2673) per WooCommerce: pulsante "Recedi dal contratto qui", dichiarazione + conferma, avviso di ricevimento su supporto durevole, audit log ed export CSV.
- * Version:           0.2.0
+ * Version:           0.2.1
  * Requires at least: 6.2
  * Requires PHP:      8.0
  * Author:            WAYT
@@ -14,7 +14,7 @@
  * Domain Path:       /languages
  *
  * WC requires at least: 7.0
- * WC tested up to:      9.9
+ * WC tested up to:      10.8
  *
  * @package WAYT_Recesso_Online
  *
@@ -28,8 +28,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WAYT_RECESSO_VERSION', '0.2.0' );
-define( 'WAYT_RECESSO_DB_VERSION', '1.0.0' );
+define( 'WAYT_RECESSO_VERSION', '0.2.1' );
+define( 'WAYT_RECESSO_DB_VERSION', '1.1.0' );
 define( 'WAYT_RECESSO_FILE', __FILE__ );
 define( 'WAYT_RECESSO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WAYT_RECESSO_URL', plugin_dir_url( __FILE__ ) );
@@ -110,6 +110,9 @@ final class WAYT_Recesso_Online {
 
 		// Verifica WooCommerce attivo.
 		add_action( 'plugins_loaded', [ $this, 'check_dependencies' ], 20 );
+
+		// Migrazione schema su aggiornamento del plugin (idempotente, guardata dalla DB version).
+		add_action( 'plugins_loaded', [ $this, 'maybe_upgrade' ], 21 );
 
 		// Stato ordine custom.
 		add_action( 'init', [ $this, 'register_order_status' ] );
@@ -199,14 +202,29 @@ final class WAYT_Recesso_Online {
 			created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			created_at_gmt DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 			ack_sent_at DATETIME NULL,
+			full_order_id BIGINT(20) UNSIGNED NULL DEFAULT NULL,
 			PRIMARY KEY  (id),
 			KEY order_id (order_id),
 			KEY status (status),
-			KEY token (token)
+			KEY token (token),
+			UNIQUE KEY full_order_id (full_order_id)
 		) {$charset_collate};";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
+	}
+
+	/**
+	 * Applica la migrazione dello schema quando il plugin viene aggiornato senza
+	 * passare dall'hook di attivazione. Idempotente: gira solo se la DB version
+	 * memorizzata e' diversa da quella corrente e dbDelta applica solo le differenze.
+	 */
+	public function maybe_upgrade(): void {
+		if ( WAYT_RECESSO_DB_VERSION === get_option( 'wayt_recesso_db_version' ) ) {
+			return;
+		}
+		self::install_table();
+		update_option( 'wayt_recesso_db_version', WAYT_RECESSO_DB_VERSION );
 	}
 
 	/**
@@ -721,15 +739,6 @@ final class WAYT_Recesso_Online {
 			return null;
 		}
 
-		// Throttling anti-enumerazione: limita i tentativi di ricerca per IP.
-		$throttle_key = 'wayt_recesso_lookup_' . md5( $this->get_ip() );
-		$attempts     = (int) get_transient( $throttle_key );
-		if ( $attempts >= 8 ) {
-			wc_print_notice( __( 'Troppi tentativi di ricerca. Riprova tra qualche minuto.', 'wayt-recesso' ), 'error' );
-			return null;
-		}
-		set_transient( $throttle_key, $attempts + 1, 15 * MINUTE_IN_SECONDS );
-
 		$number = isset( $_POST['wayt_order_number'] ) ? sanitize_text_field( wp_unslash( $_POST['wayt_order_number'] ) ) : '';
 		$email  = isset( $_POST['wayt_email'] ) ? sanitize_email( wp_unslash( $_POST['wayt_email'] ) ) : '';
 
@@ -741,10 +750,34 @@ final class WAYT_Recesso_Online {
 			return null;
 		}
 
+		// Throttling anti-enumerazione legato al BERSAGLIO (numero ordine ed email),
+		// non all'IP: dietro reverse proxy/CDN un limite per IP bloccherebbe tutti gli
+		// ospiti che condividono l'IP del proxy. Si contano i tentativi falliti per
+		// uno stesso ordine (e per una stessa email); un lookup riuscito li azzera,
+		// cosi' il cliente legittimo non viene mai penalizzato.
+		$throttle_keys = array( 'wayt_recesso_lk_o_' . md5( (string) $order_id ) );
+		if ( '' !== $email ) {
+			$throttle_keys[] = 'wayt_recesso_lk_e_' . md5( strtolower( $email ) );
+		}
+		foreach ( $throttle_keys as $tk ) {
+			if ( (int) get_transient( $tk ) >= 10 ) {
+				wc_print_notice( __( 'Troppi tentativi di ricerca. Riprova tra qualche minuto.', 'wayt-recesso' ), 'error' );
+				return null;
+			}
+		}
+		foreach ( $throttle_keys as $tk ) {
+			set_transient( $tk, (int) get_transient( $tk ) + 1, 15 * MINUTE_IN_SECONDS );
+		}
+
 		$order = wc_get_order( $order_id );
 		if ( ! $order instanceof WC_Order || ! is_email( $email ) || strtolower( $order->get_billing_email() ) !== strtolower( $email ) ) {
 			wc_print_notice( __( 'Ordine non trovato o email non corrispondente.', 'wayt-recesso' ), 'error' );
 			return null;
+		}
+
+		// Lookup riuscito: azzera i contatori del bersaglio.
+		foreach ( $throttle_keys as $tk ) {
+			delete_transient( $tk );
 		}
 		return $order;
 	}
@@ -1143,9 +1176,24 @@ final class WAYT_Recesso_Online {
 				'token'          => $token,
 				'created_at'     => $now_local->format( 'Y-m-d H:i:s' ),
 				'created_at_gmt' => $now_gmt->format( 'Y-m-d H:i:s' ),
+				// Backstop anti-doppione a livello DB: valorizzato solo per il recesso
+				// totale (UNIQUE), NULL per i parziali (i NULL non collidono).
+				'full_order_id'  => ( 'full' === $data['scope'] ) ? $order->get_id() : null,
 			],
-			[ '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' ]
+			[ '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d' ]
 		);
+
+		// Race persa: il UNIQUE su full_order_id ha rifiutato un secondo recesso
+		// totale per lo stesso ordine (il lock a transient non e' atomico: questo e'
+		// il vero backstop). Si esce con lo stesso avviso del controllo a monte.
+		if ( false === $inserted && 'full' === $data['scope'] ) {
+			$this->withdrawn_cache = [];
+			if ( $this->already_withdrawn( $order->get_id() ) ) {
+				delete_transient( $proc_lock );
+				wc_print_notice( __( 'Per questo ordine risulta gia\' registrato un recesso.', 'wayt-recesso' ), 'notice' );
+				return;
+			}
+		}
 
 		$request_id = $inserted ? (int) $wpdb->insert_id : 0;
 
